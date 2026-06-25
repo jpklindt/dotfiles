@@ -1,0 +1,5 @@
+.config/systemd/user/default.target.wants/
+
+server/containers/**/.env
+server/scripts/*.credentials.json
+.config/systemd/user/sockets.target.wants/

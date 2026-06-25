@@ -1,0 +1,11 @@
+[Unit]
+Description=MEGA cmd server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/etc/profiles/per-user/jpklindt/bin/mega-cmd-server
+Restart=always
+
+[Install]
+WantedBy=default.target

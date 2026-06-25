@@ -1,0 +1,85 @@
+version: "3.8"
+
+services:
+  nextcloud:
+    image: docker.io/library/nextcloud:stable
+    labels:
+      - "io.containers.autoupdate=registry"
+    container_name: nextcloud-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      nextcloud-db:
+        condition: service_healthy
+      nextcloud-redis:
+        condition: service_healthy
+    environment:
+      - POSTGRES_HOST=nextcloud-db
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
+      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+      - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS}
+      - REDIS_HOST=nextcloud-redis
+      - REDIS_HOST_PASSWORD=${REDIS_PASSWORD}
+      - OVERWRITEPROTOCOL=https
+      - OVERWRITECLIURL=${NEXTCLOUD_URL}
+    volumes:
+      - /srv/data/nextcloud:/var/www/html/data:Z
+      - nextcloud-html:/var/www/html
+      - /srv/data/paperless/media/documents/archive:/paperless_archive:z
+      - /srv/data/paperless/consume:/paperless_consume:z
+    networks:
+      - nextcloud-net
+
+  nextcloud-db:
+    image: docker.io/library/postgres:16-alpine
+    labels:
+      - "io.containers.autoupdate=registry"
+    container_name: nextcloud-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - nextcloud-db-data:/var/lib/postgresql/data
+    networks:
+      - nextcloud-net
+    healthcheck:
+      test: ["CMD-SHELL", "for i in 1 2 3 4 5 6 7 8 9 10; do pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} && exit 0; sleep 3; done; exit 1"]
+      interval: 30m
+      timeout: 35s
+      retries: 5
+      start_period: 30s
+      start_interval: 5s
+
+  nextcloud-redis:
+    image: docker.io/library/redis:alpine
+    labels:
+      - "io.containers.autoupdate=registry"
+    container_name: nextcloud-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - nextcloud-redis-data:/data
+    networks:
+      - nextcloud-net
+    healthcheck:
+      test: ["CMD-SHELL", "for i in 1 2 3 4 5 6 7 8 9 10; do redis-cli -a $${REDIS_PASSWORD} ping && exit 0; sleep 2; done; exit 1"]
+      interval: 30m
+      timeout: 25s
+      retries: 5
+      start_period: 10s
+      start_interval: 5s
+
+volumes:
+  nextcloud-html:
+  nextcloud-db-data:
+  nextcloud-redis-data:
+
+networks:
+  nextcloud-net:
+    driver: bridge

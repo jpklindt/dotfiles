@@ -1,0 +1,12 @@
+services:
+  watchtower:
+    image: docker.io/containrrr/watchtower:latest
+    labels:
+      - "io.containers.autoupdate=registry"
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_INCLUDE_STOPPED=false

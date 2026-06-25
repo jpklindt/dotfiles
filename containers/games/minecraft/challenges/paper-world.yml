@@ -1,0 +1,7 @@
+
+spawning:
+  per-player-mob-spawns: false
+fixes:
+  disable-unloaded-chunk-enderpearl-exploit: false
+unsupported-settings:
+  fix-invulnerable-end-crystaluexploit: false

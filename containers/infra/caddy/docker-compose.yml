@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  caddy:
+    build: .
+    image: localhost/caddy-custom:latest
+    labels:
+      - "io.containers.autoupdate=local"
+    container_name: caddy
+    restart: unless-stopped
+    network_mode: host
+    logging:
+      driver: k8s-file
+    environment:
+      - PORKBUN_API_KEY=${PORKBUN_API_KEY}
+      - PORKBUN_SECRET_API_KEY=${PORKBUN_SECRET_API_KEY}
+      - BASE_DOMAIN=${BASE_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:Z
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  jellyfin:
+    image: docker.io/jellyfin/jellyfin:latest
+    labels:
+      - "io.containers.autoupdate=registry"
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.local
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - /srv/data/media/movies:/media/movies:ro,Z
+      - /srv/data/media/music:/media/music:ro,Z
+    devices:
+      - /dev/dri:/dev/dri
+    healthcheck:
+      test: ["CMD-SHELL", "for i in 1 2 3 4 5 6 7 8 9 10; do curl -fsSL http://localhost:8096/health && exit 0; sleep 5; done; exit 1"]
+      interval: 30m
+      timeout: 60s
+      retries: 5
+      start_period: 30s
+      start_interval: 5s
+
+volumes:
+  jellyfin-config:
+  jellyfin-cache:

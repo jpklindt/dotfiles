@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest
+    labels:
+      - "io.containers.autoupdate=registry"
+    container_name: mealie
+    restart: unless-stopped
+    ports:
+      - "9925:9000"
+    environment:
+      - ALLOW_SIGNUP=false
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - BASE_URL=https://mealie.local
+      # Use built-in SQLite — perfect for single-user/household
+      # Switch to PostgreSQL only if you hit concurrency issues
+    volumes:
+      # All data (SQLite DB + recipe images) → HDD
+      - /srv/data/mealie:/app/data/:Z
+    healthcheck:
+      test: ["CMD-SHELL", "for i in 1 2 3 4 5 6 7 8 9 10; do curl -fsSL http://localhost:9000/api/app/about && exit 0; sleep 5; done; exit 1"]
+      interval: 30m
+      timeout: 60s
+      retries: 5
+      start_period: 30s
+      start_interval: 5s

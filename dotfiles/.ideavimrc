@@ -1,0 +1,5 @@
+" Sync the copy buffer to your system clipboard
+set clipboard+=unnamedplus
+
+" Map 'jk' to exit insert mode
+inoremap jk <Esc>

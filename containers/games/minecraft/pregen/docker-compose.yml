@@ -1,0 +1,18 @@
+services:
+  mc:
+    image: itzg/minecraft-server
+    environment:
+      EULA: "true"
+      TYPE: FABRIC
+      MEMORY: 6G
+      #VERSION: 1.21.4
+      #SEED: "-9067481066448872958"
+      VIEW_DISTANCE: 32
+      MODS_FILE: ./mods.txt
+    ports:
+      - "25565:25565"
+    volumes:
+      - ./data:/data
+      - "./mods:/mods"
+      - "./mods.txt:/data/mods.txt"
+      - "./ops.json:/data/ops.json"
