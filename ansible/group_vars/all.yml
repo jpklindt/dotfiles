@@ -1,0 +1,9 @@
+common_packages:
+  - git
+  - curl
+  - neovim
+  - btop
+  - fish
+  - docker
+  - docker-compose
+  - fzf

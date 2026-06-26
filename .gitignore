@@ -3,3 +3,6 @@
 server/containers/**/.env
 server/scripts/*.credentials.json
 .config/systemd/user/sockets.target.wants/
+
+.vagrant
+vault.yml

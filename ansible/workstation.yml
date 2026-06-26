@@ -1,0 +1,7 @@
+---
+- name: Provision Desk/Laptop
+  hosts: workstations
+  become: true
+  roles:
+    - base
+    - gui
