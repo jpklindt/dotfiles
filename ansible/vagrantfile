@@ -3,35 +3,20 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "private_network", ip: "192.168.122.122"
 
-  # config.vm.provider "libvirt" do |lv|
-  #   lv.memory = 2048
-  #   lv.cpus = 2
-  # end
   config.vm.provider :libvirt do |libvirt|
     libvirt.memory = 2048
     libvirt.cpus = 2
     
     libvirt.storage :file, :size => '50G'
-
     libvirt.storage :file, :size => '100G'
-
-    # # setup virtual disks to mock server environment
-    # unless File.exist?("data_drive.vdi")
-    #   libvirt.customize ["createhd", "--filename", "data_drive.vdi", "--size", 50000]
-    # end
-    
-    # unless File.exist?("backup_drive.vdi")
-    #   libvirt.customize ["createhd", "--filename", "backup_drive.vdi", "--size", 100000]
-    # end
-    
-    # # attach drives; /dev/sda main drive/ssd, /dev/sdb port1, /dev/sdc port2
-    # libvirt.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", 1, "--device", 0, "--type", "hdd", "--mdeium", "data_drive.vdi"]
-    # libvirt.customize ["storageattach", :id, "--storagectl", "SATA Controller", "--port", 2, "--device", 0, "--type", "hdd", "--mdeium", "backup_drive.vdi"]
   end
     
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "server.yml"
-    ansible.become = true
+    ansible.playbook = "playbook.yml"
+    # ansible.become = true
     ansible.limit = "all"
+    ansible.groups = {
+      "homeservers" => ["default"]
+    }
   end
 end

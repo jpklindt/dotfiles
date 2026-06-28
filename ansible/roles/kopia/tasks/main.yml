@@ -1,0 +1,18 @@
+---
+- name: Import GPG Key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://kopia.io/signing-key
+
+- name: Add Kopia YUM repository
+  ansible.builtin.yum_repository:
+    name: Kopia
+    description: Kopia Repository
+    baseurl: http://packages.kopia.io/rpm/stable/$basearch/
+    gpgcheck: true
+
+- name: Install Kopia
+  ansible.builtin.dnf:
+    name: kopia
+    state: present
+    update_cache: true

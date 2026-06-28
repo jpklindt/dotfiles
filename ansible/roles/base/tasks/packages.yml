@@ -1,0 +1,8 @@
+---
+
+- name: Install base applications
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ common_packages + (extra_packages | default([])) }}"
+    state: present
+    update_cache: true

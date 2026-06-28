@@ -7,3 +7,4 @@ common_packages:
   - docker
   - docker-compose
   - fzf
+  - kitty-terminfo

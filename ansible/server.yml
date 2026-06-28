@@ -1,7 +1,0 @@
-- name: Provision Server
-  hosts: homeservers
-  become: true
-  roles:
-    - base
-    - storage
-    - podman

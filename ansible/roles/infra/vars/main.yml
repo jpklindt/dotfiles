@@ -1,0 +1,4 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for roles/infra
+uptime_kuma_appdata_dir: /srv/appdata/uptime-kuma

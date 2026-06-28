@@ -1,0 +1,66 @@
+---
+- name: Create appdata directories for Caddy
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "/srv/appdata/caddy/{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+    setype: container_file_t
+  loop:
+    - ""
+    - data
+    - config
+    - build
+
+- name: Copy Caddyfile to appdata
+  ansible.builtin.copy:
+    src: "Caddyfile"
+    dest: "/srv/appdata/caddy/Caddyfile"
+    mode: "0644"
+
+- name: Copy Dockerfile to server
+  ansible.builtin.copy:
+    src: "Dockerfile"
+    dest: "/srv/appdata/caddy/build/Dockerfile"
+    mode: "0644"
+
+- name: Build custom Caddy image with Porkbun
+  containers.podman.podman_image:
+    name: localhost/caddy-custom
+    tag: latest
+    path: "/srv/appdata/caddy/build"
+    build:
+      file: "/srv/appdata/caddy/build/Dockerfile"
+
+- name: Generate .env file for Caddy container
+  become: true
+  ansible.builtin.template:
+    src: env.j2
+    dest: /srv/appdata/caddy/.env
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+    mode: "0600"
+
+- name: Quadlet directory check
+  ansible.builtin.file:
+    path: "~/.config/containers/systemd"
+    state: directory
+    mode: "0755"
+- name: Copy caddy quadlet
+
+  ansible.builtin.copy:
+    src: "caddy.container"
+    dest: "~/.config/containers/systemd/caddy.container"
+    mode: "0644"
+  notify: Reload systemd
+
+- name: Start Caddy service
+  ansible.builtin.systemd:
+    name: caddy.service
+    state: started
+    enabled: true
+    scope: user
+    daemon_reload: true

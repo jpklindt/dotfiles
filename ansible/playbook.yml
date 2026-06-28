@@ -1,0 +1,13 @@
+---
+- name: Base Configuration
+  hosts: all
+  roles:
+    - base
+
+- name: Deploy Apps
+  hosts: homeservers
+  become: true
+  become_user: "{{ vault_admin_username }}"
+
+  roles:
+    - infra
