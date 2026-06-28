@@ -1,7 +1,8 @@
 - name: Allow HTTP in firewalld
+  become: true
+  become_user: root
   ansible.posix.firewalld:
     port: 80/tcp
     permanent: true
     state: enabled
     immediate: true
-  become: true
