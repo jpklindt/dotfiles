@@ -1,0 +1,15 @@
+---
+- name: Copy container file
+  ansible.builtin.copy:
+    src: "it-tools.container"
+    dest: "~/.config/containers/systemd/it-tools.container"
+    mode: "0644"
+  notify: Reload systemd
+
+- name: Start it-tools service
+  ansible.builtin.systemd:
+    name: it-tools.service
+    state: started
+    enabled: true
+    scope: user
+    daemon_reload: true

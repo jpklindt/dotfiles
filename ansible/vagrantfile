@@ -18,4 +18,5 @@ Vagrant.configure("2") do |config|
       "homeservers" => ["default"]
     }
   end
+config.vm.network "forwarded_port", guest: 2283, host: 2283
 end

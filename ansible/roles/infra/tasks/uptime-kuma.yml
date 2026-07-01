@@ -4,18 +4,12 @@
   become: true
   become_user: root
   ansible.builtin.file:
-    path: "{{ uptime_kuma_appdata_dir }}"
+    path: "{{ global_hot_dir }}/uptime-kuma"
     state: directory
     mode: "0755"
     owner: "{{ vault_admin_username }}"
     group: "{{ vault_admin_username }}"
     setype: container_file_t
-
-- name: Quadlet directory check
-  ansible.builtin.file:
-    path: "~/.config/containers/systemd"
-    state: directory
-    mode: "0755"
 
 - name: Copy container file
   ansible.builtin.copy:
@@ -24,11 +18,10 @@
     mode: "0644"
   notify: Reload systemd
 
-- name: Get actual user UID for Systemd
-  ansible.builtin.command: id -u
-  register: uptime_kuma_dynamic_uid
-  changed_when: false
-
+# - name: Get actual user UID for Systemd
+#   ansible.builtin.command: id -u
+#   register: infra_uptime_kuma_dynamic_uid
+#   changed_when: false
 - name: Start uptime-kuma service
   ansible.builtin.systemd:
     name: uptime-kuma.service
@@ -36,5 +29,5 @@
     enabled: true
     scope: user
     daemon_reload: true
-  environment:
-    XDG_RUNTIME_DIR: "/run/user/{{ uptime_kuma_dynamic_uid.stdout }}"
+  # environment:
+  #   XDG_RUNTIME_DIR: "/run/user/{{ infra_uptime_kuma_dynamic_uid.stdout }}"

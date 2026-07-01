@@ -8,3 +8,13 @@ common_packages:
   - docker-compose
   - fzf
   - kitty-terminfo
+
+global_hot_dir: "/srv/appdata"
+global_cold_dir: "/srv/data"
+global_backup_dir: "/srv/backup"
+
+# TODO: will prod ignore these? needed because vagrant not reading vars from vagrant.yml.
+backup_drive_path: /dev/vdc
+data_drive_path: /dev/vdb
+
+ansible_ssh_extra_args: "-o SetEnv=TERM=dumb"

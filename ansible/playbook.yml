@@ -4,6 +4,11 @@
   roles:
     - base
 
+- name: Storage Configuration
+  hosts: homeservers
+  roles:
+    - storage
+
 - name: Deploy Apps
   hosts: homeservers
   become: true
@@ -11,3 +16,5 @@
 
   roles:
     - infra
+    - immich
+    - apps

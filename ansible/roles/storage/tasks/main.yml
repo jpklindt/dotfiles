@@ -1,0 +1,24 @@
+---
+- name: Create global storage directories
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ global_hot_dir }}"
+    - "{{ global_cold_dir }}"
+
+- name: Format and mount drives
+  ansible.builtin.import_tasks: mount.yml
+
+- name: Create Backup subdirs
+  become: true
+  ansible.builtin.file:
+    path: "{{ global_backup_dir }}/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "kopia"
+    # - "immich-db-export"
+    # - "nextcloud-db-export"

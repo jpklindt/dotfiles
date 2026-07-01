@@ -1,0 +1,125 @@
+# SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/immich
+- name: Create Immich Hot Storage directories
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+  loop:
+    - "{{ global_hot_dir }}/immich"
+    - "{{ global_hot_dir }}/immich/db"
+
+- name: Create Immich Cold Storage directory
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "{{ global_cold_dir }}/immich"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+
+- name: Fix root ownership lockout
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "/home/{{ vault_admin_username }}/{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+  loop:
+    - .config
+    - .config/containers
+    - .config/containers/systemd
+
+- name: Quadlet directory check
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "/home/{{ vault_admin_username }}/.config/containers/systemd"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+
+- name: Clone Immich Quadlet repository
+  ansible.builtin.git:
+    repo: "https://github.com/jbtrystram/immich-podman-systemd.git"
+    dest: "/home/{{ vault_admin_username }}/.local/src/immich-podman-systemd"
+    version: ca29cde77c08f7ac60b243b92236db88dcd8f624
+    update: true
+
+- name: Copy base Quadlet files
+  ansible.builtin.copy:
+    src: "/home/{{ vault_admin_username }}/.local/src/immich-podman-systemd/quadlet/"
+    dest: "/home/{{ vault_admin_username }}/.config/containers/systemd/"
+    remote_src: true
+    mode: "0644"
+    directory_mode: "0755"
+
+- name: Fix systemd directory permissions after copy
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "/home/{{ vault_admin_username }}/.config/containers/systemd"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+
+- name: Generate templated .env file
+  ansible.builtin.template:
+    src: env.j2
+    dest: "/home/{{ vault_admin_username }}/.config/containers/systemd/immich.env"
+    mode: "0600"
+
+- name: Create drop-in directories for volumes
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "/home/{{ vault_admin_username }}/.config/containers/systemd/{{ item }}.d"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+  loop:
+    - immich-server.container
+    - immich-database.container
+
+- name: Configure custom library volume mount (Drop-ins)
+  become: true
+  become_user: root
+  ansible.builtin.template:
+    src: "01-library-volume.conf.j2"
+    dest: "/home/{{ vault_admin_username }}/.config/containers/systemd/immich-server.container.d/01-library-volume.conf"
+    mode: "0644"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+
+- name: Configure DB custom volume mount (Drop-ins)
+  become: true
+  become_user: root
+  ansible.builtin.template:
+    src: "01-database-volume.conf.j2"
+    dest: "/home/{{ vault_admin_username }}/.config/containers/systemd/immich-database.container.d/01-database-volume.conf"
+    mode: "0644"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+
+- name: Reload systemd user daemon (trigger quadlet generator)
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+
+- name: Start Immich via Systemd
+  ansible.builtin.systemd:
+    name: immich-pod.service
+    state: started
+    enabled: true
+    scope: user

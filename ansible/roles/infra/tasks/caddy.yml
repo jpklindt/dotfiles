@@ -44,13 +44,7 @@
     group: "{{ vault_admin_username }}"
     mode: "0600"
 
-- name: Quadlet directory check
-  ansible.builtin.file:
-    path: "~/.config/containers/systemd"
-    state: directory
-    mode: "0755"
 - name: Copy caddy quadlet
-
   ansible.builtin.copy:
     src: "caddy.container"
     dest: "~/.config/containers/systemd/caddy.container"

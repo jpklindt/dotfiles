@@ -1,12 +1,18 @@
 ---
-- name: Deploy Caddy container
-  ansible.builtin.import_tasks: caddy.yml
+- name: Quadlet directory check
+  ansible.builtin.file:
+    path: "~/.config/containers/systemd"
+    state: directory
+    mode: "0755"
+
+# - name: Deploy Caddy container
+#   ansible.builtin.import_tasks: caddy.yml
 
 - name: Deploy Uptime Kuma container
   ansible.builtin.import_tasks: uptime-kuma.yml
 
-- name: Deploy beszel container
-  ansible.builtin.import_tasks: beszel.yml
+# - name: Deploy beszel container
+#   ansible.builtin.import_tasks: beszel.yml
 
 - name: Allow port 80 in firewalld
   ansible.builtin.import_tasks: firewalld.yml

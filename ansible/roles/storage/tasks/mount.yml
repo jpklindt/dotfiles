@@ -1,0 +1,32 @@
+---
+- name: Format Data Drive (skip if already formatted)
+  become: true
+  community.general.filesystem:
+    fstype: xfs
+    dev: "{{ data_drive_path }}"
+    opts: "-L data-primary"
+
+- name: Mount Primary Data Drive
+  become: true
+  ansible.posix.mount:
+    path: "{{ global_cold_dir }}"
+    src: "LABEL=data-primary"
+    fstype: xfs
+    opts: defaults,noatime,nofail
+    state: mounted
+
+- name: Format Backup Drive (skip if already formatted)
+  become: true
+  community.general.filesystem:
+    fstype: xfs
+    dev: "{{ backup_drive_path }}"
+    opts: "-L backup"
+
+- name: Mount Backup Drive
+  become: true
+  ansible.posix.mount:
+    path: "{{ global_backup_dir }}"
+    src: "LABEL=backup"
+    fstype: xfs
+    opts: defaults,noatime,nofail
+    state: mounted
