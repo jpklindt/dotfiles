@@ -14,7 +14,7 @@
 - name: Copy container file
   ansible.builtin.copy:
     src: "uptime-kuma.container"
-    dest: "~/.config/containers/systemd/uptime-kuma.container"
+    dest: "/home/{{ vault_admin_username }}/.config/containers/systemd/uptime-kuma.container"
     mode: "0644"
   notify: Reload systemd
 

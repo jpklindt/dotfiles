@@ -8,7 +8,4 @@ vault_porkbun_api_key: porkbun_api_key
 vault_porkbun_secret_api_key: porkbun_secret_api_key
 
 # Immich
-vault_immich_db_name: "immich"
-vault_immich_db_user: "immich"
 vault_immich_db_password: "your_secure_db_password"
-vault_immich_redis_password: "your_secure_redis_password"

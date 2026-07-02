@@ -1,3 +1,8 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for roles/immich
+immich_version: "v3.0.0"
+immich_timezone: "Europe/Amsterdam"
+immich_db_name: "immich"
+immich_upload_dir: "{{ global_cold_dir }}/immich"
+immich_db_dir: "{{ global_hot_dir }}/immich/db"

@@ -1,0 +1,14 @@
+[Unit]
+Description=Immich Database
+
+[Container]
+Pod=immich.pod
+Image=ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+Environment=POSTGRES_PASSWORD={{ vault_immich_db_password }}
+Environment=POSTGRES_USER={{ vault_immich_db_user }}
+Environment=POSTGRES_DB={{ immich_db_name }}
+Environment=POSTGRES_INITDB_ARGS=--data-checksums
+Volume={{ immich_db_dir }}:/var/lib/postgresql/data:z
+
+[Service]
+TimeoutStartSec=900

@@ -3,7 +3,7 @@ Description=Uptime Kuma Monitoring
 After=network-online.target
 
 [Container]
-Image="docker.io/louislam/uptime-kuma:2"
+Image=docker.io/louislam/uptime-kuma:2
 
 AutoUpdate=registry
 

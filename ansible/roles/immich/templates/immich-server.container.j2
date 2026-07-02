@@ -1,0 +1,20 @@
+[Unit]
+Description=Immich Server
+Requires=immich-redis.container immich-database.container
+After=immich-redis.container immich-database.container
+
+[Container]
+Pod=immich.pod
+Image=ghcr.io/immich-app/immich-server:{{ immich_version }}
+Volume={{ immich_upload_dir }}:/data:z
+Volume=/etc/localtime:/etc/localtime:ro
+Environment=TZ={{ immich_timezone }}
+Environment=DB_PASSWORD={{ vault_immich_db_password }}
+Environment=DB_USERNAME={{ vault_immich_db_user }}
+Environment=DB_DATABASE_NAME={{ immich_db_name }}
+Environment=DB_HOSTNAME=localhost
+Environment=REDIS_HOSTNAME=localhost
+#AddDevice=/dev/dri
+
+[Service]
+TimeoutStartSec=900
