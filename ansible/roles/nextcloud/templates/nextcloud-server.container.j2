@@ -1,0 +1,27 @@
+[Unit]
+Description=Nextcloud Server
+Requires=nextcloud-database.container nextcloud-valkey.container
+After=nextcloud-database.container nextcloud-valkey.container
+
+[Container]
+Pod=nextcloud.pod
+Image=docker.io/nextcloud:{{ nextcloud_version }}
+Volume={{ nextcloud_html_dir }}:/var/www/html:z
+Volume={{ nextcloud_data_dir }}:/var/www/html/data:z
+Volume={{ nextcloud_paperless_archive_dir }}:/paperless_archive:z
+Volume={{ nextcloud_paperless_consume_dir }}:/paperless_consume:z
+Environment=POSTGRES_HOST=localhost
+Environment=POSTGRES_DB={{ vault_nextcloud_db_name }}
+Environment=POSTGRES_USER={{ vault_nextcloud_db_user }}
+Environment=POSTGRES_PASSWORD={{ vault_nextcloud_db_password }}
+Environment=REDIS_HOST=localhost
+Environment=NEXTCLOUD_ADMIN_USER={{ vault_nextcloud_admin_user }}
+Environment=NEXTCLOUD_ADMIN_PASSWORD={{ vault_nextcloud_admin_password }}
+Environment=NEXTCLOUD_TRUSTED_DOMAINS={{ vault_nextcloud_trusted_domains }}
+Environment=OVERWRITEPROTOCOL=https
+Environment=OVERWRITEHOST={{ nextcloud_domain }}
+Environment=OVERWRITECLIURL=https://{{ nextcloud_domain }}
+Environment=TZ={{ nextcloud_timezone }}
+
+[Service]
+TimeoutStartSec=900

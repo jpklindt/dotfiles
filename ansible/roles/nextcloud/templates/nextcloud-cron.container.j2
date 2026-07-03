@@ -1,0 +1,17 @@
+[Unit]
+Description=Nextcloud Cron
+After=nextcloud-server.container
+Requires=nextcloud-server.container
+
+[Container]
+Pod=nextcloud.pod
+Image=docker.io/nextcloud:{{ nextcloud_version }}
+Exec=php -f /var/www/html/cron.php
+User=www-data
+Volume={{ nextcloud_html_dir }}:/var/www/html:z
+Volume={{ nextcloud_data_dir }}:/var/www/html/data:z
+Volume={{ nextcloud_paperless_archive_dir }}:/paperless_archive:z
+Volume={{ nextcloud_paperless_consume_dir }}:/paperless_consume:z
+
+[Service]
+Type=oneshot

@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: MIT-0
+---
+# defaults file for roles/nextcloud
+nextcloud_version: 34.0.1
+nextcloud_domain: "nextcloud.{{ vault_base_domain }}"
+nextcloud_timezone: "Europe/Amsterdam"
+nextcloud_data_dir: "{{ global_hot_dir }}/nextcloud/data"
+nextcloud_html_dir: "{{ global_hot_dir }}/nextcloud/html"
+nextcloud_db_dir: "{{ global_hot_dir }}/nextcloud/db"
+nextcloud_paperless_archive_dir: "{{ global_hot_dir }}/paperless/media/documents/archive"
+nextcloud_paperless_consume_dir: "{{ global_hot_dir }}/paperless/consume"

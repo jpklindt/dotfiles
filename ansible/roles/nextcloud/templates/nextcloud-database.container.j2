@@ -1,0 +1,15 @@
+[Unit]
+Description=Nextcloud Database
+
+[Container]
+Pod=nextcloud.pod
+Image=docker.io/postgres:16-alpine
+Environment=POSTGRES_PASSWORD={{ vault_nextcloud_db_password }}
+Environment=POSTGRES_USER={{ vault_nextcloud_db_user }}
+Environment=POSTGRES_DB={{ vault_nextcloud_db_name }}
+Environment=POSTGRES_INITDB_ARGS=--data-checksums
+Volume={{ nextcloud_db_dir }}:/var/lib/postgresql/data:Z
+
+[Service]
+TimeoutStartSec=900
+

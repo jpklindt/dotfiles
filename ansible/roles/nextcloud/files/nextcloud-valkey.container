@@ -1,0 +1,11 @@
+[Unit]
+Description=Nextcloud Valkey container
+
+[Container]
+ContainerName=nextcloud-valkey
+Image=docker.io/valkey/valkey:9
+AutoUpdate=registry
+Pod=nextcloud.pod
+
+[Service]
+Restart=always
