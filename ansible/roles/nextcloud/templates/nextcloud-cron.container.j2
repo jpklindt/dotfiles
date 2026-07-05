@@ -10,8 +10,8 @@ Exec=php -f /var/www/html/cron.php
 User=www-data
 Volume={{ nextcloud_html_dir }}:/var/www/html:z
 Volume={{ nextcloud_data_dir }}:/var/www/html/data:z
-Volume={{ nextcloud_paperless_archive_dir }}:/paperless_archive:z
-Volume={{ nextcloud_paperless_consume_dir }}:/paperless_consume:z
+Volume={{ paperless_media_dir }}/documents/archive:/paperless_archive:z
+Volume={{ paperless_consume_dir }}:/paperless_consume:z
 
 [Service]
 Type=oneshot

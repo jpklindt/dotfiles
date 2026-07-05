@@ -1,0 +1,12 @@
+[Unit]
+Description=Paperless Redis container
+
+[Container]
+ContainerName=paperless-redis
+Image=docker.io/valkey/valkey:9
+Pod=paperless.pod
+HealthCmd=redis-cli ping
+AutoUpdate=registry
+
+[Service]
+Restart=always

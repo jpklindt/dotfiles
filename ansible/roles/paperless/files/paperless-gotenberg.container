@@ -1,0 +1,12 @@
+[Unit]
+Description=Paperless Gotenberg container
+
+[Container]
+ContainerName=paperless-gotenberg
+Image=docker.io/gotenberg/gotenberg:8.34.0
+Exec=gotenberg --chromium-disable-javascript=true --chromium-allow-list=file:///tmp/.*
+Pod=paperless.pod
+AutoUpdate=registry
+
+[Service]
+Restart=always

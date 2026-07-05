@@ -12,7 +12,7 @@
     owner: "{{ vault_admin_username }}"
     group: "{{ vault_admin_username }}"
 
-- name: Create Nextcloud storage directories # runs as admin user, no owner param
+- name: Create Nextcloud storage directories
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -22,23 +22,23 @@
     - "{{ nextcloud_html_dir }}"
     - "{{ nextcloud_db_dir }}"
 
-- name: Create Paperless base directory
-  become: true
-  become_user: root
-  ansible.builtin.file:
-    path: "{{ global_hot_dir }}/paperless"
-    state: directory
-    mode: "0755"
-    owner: "{{ vault_admin_username }}"
-    group: "{{ vault_admin_username }}"
+# - name: Create Paperless base directory
+#   become: true
+#   become_user: root
+#   ansible.builtin.file:
+#     path: "{{ global_hot_dir }}/paperless"
+#     state: directory
+#     mode: "0755"
+#     owner: "{{ vault_admin_username }}"
+#     group: "{{ vault_admin_username }}"
 
-- name: Create Paperless storage directories
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ nextcloud_paperless_archive_dir }}"
-    - "{{ nextcloud_paperless_consume_dir }}"
+# - name: Create Paperless storage directories
+#   ansible.builtin.file:
+#     path: "{{ item }}"
+#     state: directory
+#   loop:
+#     - "{{ paperless_media_dir }}/archive"
+#     - "{{ paperless_consume_dir }}"
 
 - name: Own data and html dirs as container www-data
   ansible.builtin.command: podman unshare chown 33:33 {{ nextcloud_data_dir }} {{ nextcloud_html_dir }}

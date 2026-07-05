@@ -18,4 +18,5 @@
     - infra
     - immich
     - apps
+    - paperless # paperless -> nextcloud!
     - nextcloud

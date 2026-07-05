@@ -1,0 +1,42 @@
+[Unit]
+Description=Paperless Server
+Requires=paperless-db.container paperless-redis.container paperless-gotenberg.container paperless-tika.container
+After=paperless-db.container paperless-redis.container paperless-gotenberg.container paperless-tika.container
+
+[Container]
+Image=ghcr.io/paperless-ngx/paperless-ngx:{{ paperless_version }}
+Pod=paperless.pod
+Volume={{ paperless_consume_dir }}:/usr/src/paperless/consume:z
+Volume={{ paperless_export_dir }}:/usr/src/paperless/export:z
+Volume={{ paperless_media_dir }}:/usr/src/paperless/media:z
+Volume={{ paperless_data_dir }}:/usr/src/paperless/data:z
+Environment=PAPERLESS_DBENGINE=postgresql
+Environment=PAPERLESS_DBHOST=localhost
+Environment=PAPERLESS_DBNAME={{ paperless_db_name }}
+Environment=PAPERLESS_DBUSER={{ vault_paperless_db_user }}
+Environment=PAPERLESS_DBPASS={{ vault_paperless_db_password }}
+Environment=USERMAP_UID=33
+Environment=USERMAP_GID=33
+Environment=PAPERLESS_REDIS=redis://localhost:6379
+Environment=PAPERLESS_ADMIN_USER={{ vault_paperless_admin_user }}
+Environment=PAPERLESS_ADMIN_PASSWORD={{ vault_paperless_admin_password }}
+Environment=PAPERLESS_SECRET_KEY={{ vault_paperless_secret_key }}
+Environment=PAPERLESS_CSRF_TRUSTED_ORIGINS=https://{{ paperless_domain }}
+Environment=PAPERLESS_URL=https://{{ paperless_domain }}
+Environment=PAPERLESS_ALLOWED_HOSTS={{ paperless_domain }},localhost,127.0.0.1
+Environment=PAPERLESS_TIME_ZONE={{ paperless_timezone }}
+Environment=PAPERLESS_OCR_LANGUAGE={{ paperless_ocr_language }}
+Environment=PAPERLESS_TIKA_ENABLED=1
+Environment=PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://localhost:3000
+Environment=PAPERLESS_TIKA_ENDPOINT=http://localhost:9998
+Environment=PAPERLESS_OCR_SKIP_ARCHIVE_FILE=never
+Environment=PAPERLESS_FILENAME_FORMAT={{ paperless_filename_format }}
+# AI
+Environment=PAPERLESS_AI_ENABLED={{ paperless_ai_enabled }}
+Environment=PAPERLESS_AI_LLM_BACKEND=ollama
+Environment=PAPERLESS_AI_LLM_MODEL={{ paperless_ai_model }}
+Environment=PAPERLESS_AI_LLM_ENDPOINT=http://{{ paperless_ollama_host }}:{{ paperless_ollama_port }}
+
+[Service]
+TimeoutStartSec=900
+Restart=always

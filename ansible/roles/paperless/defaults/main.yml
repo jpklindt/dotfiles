@@ -1,0 +1,19 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for roles/paperless
+paperless_version: "3.0.0-beta.rc1"
+paperless_timezone: "Europe/Amsterdam"
+paperless_domain: "paperless.{{ vault_base_domain }}"
+paperless_ocr_language: "eng"
+
+paperless_db_name: "paperless"
+paperless_db_dir: "{{ global_hot_dir }}/paperless/db"
+paperless_export_dir: "{{ global_hot_dir }}/paperless/export"
+paperless_data_dir: "{{ global_hot_dir }}/paperless/data"
+
+paperless_filename_format: !unsafe "{{ document_type }}/{{ added_year }}-{{ added_month }}_{{ title }}"
+
+paperless_ai_enabled: true
+paperless_ai_model: "hf.co/unsloth/gemma-4-12b-it-GGUF:Q6_K"
+paperless_ollama_host: "192.168.2.123"
+paperless_ollama_port: "11434"

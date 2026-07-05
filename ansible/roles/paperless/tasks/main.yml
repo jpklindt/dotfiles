@@ -1,0 +1,64 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/paperless
+
+- name: Create paperless storage directories
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+  loop:
+    - "{{ global_hot_dir }}/paperless/"
+    - "{{ paperless_db_dir }}"
+    - "{{ paperless_export_dir }}"
+    - "{{ paperless_media_dir }}"
+    - "{{ paperless_data_dir }}"
+    - "{{ paperless_consume_dir }}"
+
+- name: Share storage directories with Nextcloud
+  become: true
+  become_method: containers.podman.podman_unshare
+  changed_when: false
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: 33
+    group: 33
+  loop:
+    - "{{ paperless_media_dir }}"
+    - "{{ paperless_consume_dir }}"
+    - "{{ paperless_export_dir }}"
+    - "{{ paperless_data_dir }}"
+
+- name: Copy static quadlet files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "~/.config/containers/systemd/{{ item }}"
+    mode: "0644"
+  loop:
+    - paperless.pod
+    - paperless-redis.container
+    - paperless-gotenberg.container
+    - paperless-tika.container
+  notify: Reload systemd
+
+- name: Template quadlet files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "~/.config/containers/systemd/{{ item }}"
+    mode: "0644"
+  loop:
+    - paperless-server.container
+    - paperless-db.container
+  notify: Reload systemd
+
+- name: Start Paperless pod
+  ansible.builtin.systemd:
+    name: paperless-pod.service
+    state: started
+    enabled: true
+    scope: user
+    daemon_reload: true

@@ -1,0 +1,11 @@
+[Unit]
+Description=Paperless Tika container
+
+[Container]
+ContainerName=paperless-tika
+Image=docker.io/apache/tika:3.3.1.0
+Pod=paperless.pod
+AutoUpdate=registry
+
+[Service]
+Restart=always

@@ -1,0 +1,11 @@
+[Unit]
+Description=Paperless Database Container
+
+[Container]
+Image=docker.io/postgres:16-alpine
+Pod=paperless.pod
+Environment=POSTGRES_DB={{ paperless_db_name }}
+Environment=POSTGRES_USER={{ vault_paperless_db_user }}
+Environment=POSTGRES_PASSWORD={{ vault_paperless_db_password }}
+Volume={{ paperless_db_dir }}:/var/lib/postgresql/data:Z
+HealthCmd=pg_isready -U {{ vault_paperless_db_user }} -d {{ paperless_db_name }}

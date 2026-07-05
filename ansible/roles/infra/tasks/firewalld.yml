@@ -20,3 +20,4 @@
     - 2283/tcp # Immich
     - 3001/tcp # Uptime Kuma
     - 8080/tcp # Nextcloud
+    - 8010/tcp # Paperless
