@@ -4,6 +4,7 @@ Requires=paperless-db.container paperless-redis.container paperless-gotenberg.co
 After=paperless-db.container paperless-redis.container paperless-gotenberg.container paperless-tika.container
 
 [Container]
+ContainerName=paperless-server
 Image=ghcr.io/paperless-ngx/paperless-ngx:{{ paperless_version }}
 Pod=paperless.pod
 Volume={{ paperless_consume_dir }}:/usr/src/paperless/consume:z
@@ -17,6 +18,7 @@ Environment=PAPERLESS_DBUSER={{ vault_paperless_db_user }}
 Environment=PAPERLESS_DBPASS={{ vault_paperless_db_password }}
 Environment=USERMAP_UID=33
 Environment=USERMAP_GID=33
+
 Environment=PAPERLESS_REDIS=redis://localhost:6379
 Environment=PAPERLESS_ADMIN_USER={{ vault_paperless_admin_user }}
 Environment=PAPERLESS_ADMIN_PASSWORD={{ vault_paperless_admin_password }}

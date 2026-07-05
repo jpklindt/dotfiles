@@ -4,6 +4,7 @@ Requires=immich-redis.container immich-database.container
 After=immich-redis.container immich-database.container
 
 [Container]
+ContainerName=immich-server
 Pod=immich.pod
 Image=ghcr.io/immich-app/immich-server:{{ immich_version }}
 Volume={{ immich_upload_dir }}:/data:z

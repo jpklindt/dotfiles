@@ -4,6 +4,7 @@ Requires=nextcloud-database.container nextcloud-valkey.container
 After=nextcloud-database.container nextcloud-valkey.container
 
 [Container]
+ContainerName=nextcloud-server
 Pod=nextcloud.pod
 Image=docker.io/nextcloud:{{ nextcloud_version }}
 Volume={{ nextcloud_html_dir }}:/var/www/html:z

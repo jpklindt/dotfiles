@@ -3,6 +3,7 @@ Description=IT Tools Container
 After=network-online.target
 
 [Container]
+ContainerName=it-tools
 Image=docker.io/corentinth/it-tools:latest
 
 AutoUpdate=registry

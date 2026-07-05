@@ -2,6 +2,7 @@
 Description=Immich Redis
 
 [Container]
+ContainerName=immich-redis
 #AutoUpdate=registry
 Pod=immich.pod
 Image=docker.io/valkey/valkey:9

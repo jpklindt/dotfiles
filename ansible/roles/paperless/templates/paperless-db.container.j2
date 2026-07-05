@@ -2,6 +2,7 @@
 Description=Paperless Database Container
 
 [Container]
+ContainerName=paperless-db
 Image=docker.io/postgres:16-alpine
 Pod=paperless.pod
 Environment=POSTGRES_DB={{ paperless_db_name }}

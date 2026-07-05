@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "nglgzz/fedora-server-44"
 
-  config.vm.network "private_network", ip: "192.168.122.122"
+  # config.vm.network "private_network", ip: "192.168.122.122"
 
   config.vm.provider :libvirt do |libvirt|
     libvirt.memory = 4096
@@ -12,7 +12,29 @@ Vagrant.configure("2") do |config|
     libvirt.storage :file, :size => '50G'
     libvirt.storage :file, :size => '100G'
   end
-    
+
+  # Disable NFS
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # Enlarge storage to fill 50GB disk
+  config.vm.provision "grow-root", type: "shell", inline: <<~SHELL
+    set -euo pipefail
+    command -v growpart >/dev/null || dnf install -y cloud-utils-growpart
+    LV=$(findmnt -no SOURCE /)
+    PV=$(pvs --noheadings -o pv_name | awk 'NR==1{print $1}' | tr -d '[:space:]')
+    [ -n "$PV" ] || { echo "grow-root: could not find a physical volume (need root?)" >&2; exit 1; }
+    DISK=/dev/$(lsblk -no PKNAME "$PV")
+    PART=$(echo "$PV" | grep -o '[0-9]*$')
+    growpart "$DISK" "$PART" || true   # exits non-zero when already grown
+    pvresize "$PV"
+    lvextend -l +100%FREE "$LV" || true   # exits non-zero when already at max
+    case "$(findmnt -no FSTYPE /)" in
+      xfs) xfs_growfs / ;;
+      *)   resize2fs "$LV" ;;
+    esac
+    df -h /
+  SHELL
+
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yml"
     ansible.limit = "all"

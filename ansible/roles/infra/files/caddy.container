@@ -3,6 +3,7 @@ Description=caddy
 After=network-online.target
 
 [Container]
+ContainerName=caddy
 Image=localhost/caddy-custom:latest
 EnvironmentFile=/srv/appdata/caddy/.env
 
