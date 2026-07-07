@@ -21,3 +21,4 @@ ansible_ssh_extra_args: "-o SetEnv=TERM=dumb"
 
 paperless_media_dir: "{{ global_hot_dir }}/paperless/media"
 paperless_consume_dir: "{{ global_hot_dir }}/paperless/consume"
+paperless_archive_dir: "{{ global_hot_dir }}/paperless/media/documents/archive"

@@ -17,9 +17,10 @@
 
 - name: Copy Caddyfile to appdata
   ansible.builtin.copy:
-    src: "Caddyfile"
+    src: "{{ 'Caddyfile.dev' if 'vagrant' in group_names else 'Caddyfile' }}"
     dest: "/srv/appdata/caddy/Caddyfile"
     mode: "0644"
+  notify: Restart caddy service
 
 - name: Copy Dockerfile to server
   ansible.builtin.copy:

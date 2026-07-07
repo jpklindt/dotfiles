@@ -16,6 +16,7 @@
     - "{{ paperless_db_dir }}"
     - "{{ paperless_export_dir }}"
     - "{{ paperless_media_dir }}"
+    - "{{ paperless_archive_dir }}"
     - "{{ paperless_data_dir }}"
     - "{{ paperless_consume_dir }}"
 
@@ -53,7 +54,9 @@
   loop:
     - paperless-server.container
     - paperless-db.container
-  notify: Reload systemd
+  notify:
+    - Reload systemd
+    - Restart paperless server
 
 - name: Start Paperless pod
   ansible.builtin.systemd:

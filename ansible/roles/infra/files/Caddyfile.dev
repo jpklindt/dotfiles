@@ -1,0 +1,74 @@
+{
+	auto_https off
+}
+
+# Nextcloud
+http://nextcloud.{$BASE_DOMAIN} {
+	# CalDAV/CardDAV well-known redirects
+	redir /.well-known/carddav /remote.php/dav/ 301
+	redir /.well-known/caldav /remote.php/dav/ 301
+
+	# Recommended Nextcloud headers
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "no-referrer"
+		X-Permitted-Cross-Domain-Policies "none"
+		X-Robots-Tag "noindex, nofollow"
+	}
+
+	reverse_proxy localhost:8080
+}
+
+# Immich
+http://immich.{$BASE_DOMAIN} {
+	reverse_proxy localhost:2283
+}
+
+# Jellyfin
+http://jellyfin.{$BASE_DOMAIN} {
+	reverse_proxy localhost:8096
+}
+
+# Paperless-ngx
+http://paperless.{$BASE_DOMAIN} {
+	reverse_proxy localhost:8010
+}
+
+# Mealie
+http://mealie.{$BASE_DOMAIN} {
+	reverse_proxy localhost:9925
+}
+
+# Beszel agent
+http://beszel-agent.{$BASE_DOMAIN} {
+	reverse_proxy unix//beszel_socket/beszel.sock
+}
+
+# Beszel web interface
+http://beszel.{$BASE_DOMAIN} {
+	reverse_proxy localhost:8090
+}
+
+# it-tools
+http://it-tools.{$BASE_DOMAIN} {
+	reverse_proxy localhost:8081
+}
+
+# uptime-kuma
+http://uptime-kuma.{$BASE_DOMAIN} {
+	reverse_proxy localhost:3001
+}
+
+# uptime
+http://uptime.{$BASE_DOMAIN} {
+	reverse_proxy localhost:3001
+}
+
+http://paperless-ai.{$BASE_DOMAIN} {
+	reverse_proxy localhost:3003
+}
+
+http://paperless-gpt.{$BASE_DOMAIN} {
+	reverse_proxy localhost:3004
+}

@@ -64,7 +64,9 @@
     - nextcloud-cron.container
     - nextcloud-database.container
     - nextcloud-server.container
-  notify: Reload systemd
+  notify:
+    - Reload systemd
+    - Restart nextcloud server
 
 - name: Start Nextcloud pod
   ansible.builtin.systemd:

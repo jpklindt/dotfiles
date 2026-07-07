@@ -3,6 +3,8 @@
 # defaults file for roles/nextcloud
 nextcloud_version: 34.0.1
 nextcloud_domain: "nextcloud.{{ vault_base_domain }}"
+nextcloud_trusted_domains: "{{ vault_nextcloud_trusted_domains }}"
+nextcloud_overwrite_protocol: "https"
 nextcloud_timezone: "Europe/Amsterdam"
 nextcloud_data_dir: "{{ global_hot_dir }}/nextcloud/data"
 nextcloud_html_dir: "{{ global_hot_dir }}/nextcloud/html"

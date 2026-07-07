@@ -8,3 +8,6 @@ all:
           ansible_user: vagrant
           backup_drive_path: /dev/vdc
           data_drive_path: /dev/vdb
+    vagrant:
+      hosts:
+        fedora-vagrant:
