@@ -20,3 +20,4 @@
     - apps
     - paperless # paperless -> nextcloud!
     - nextcloud
+    - dotfiles

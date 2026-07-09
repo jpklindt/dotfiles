@@ -1,0 +1,2 @@
+dotfiles_src: "{{ (playbook_dir + '/../dotfiles') | realpath }}"
+dotfiles_dest: "{{ lookup('env', 'HOME') }}"

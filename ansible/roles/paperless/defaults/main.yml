@@ -17,5 +17,5 @@ paperless_filename_format: !unsafe "{{ document_type }}/{{ added_year }}-{{ adde
 
 paperless_ai_enabled: true
 paperless_ai_model: "hf.co/unsloth/gemma-4-12b-it-GGUF:Q6_K"
-paperless_ollama_host: { { vault_desktop_host } }
+paperless_ollama_host: "{{ vault_desktop_host }}"
 paperless_ollama_port: "11434"

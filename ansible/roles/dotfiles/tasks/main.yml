@@ -1,0 +1,24 @@
+---
+- name: Find files
+  ansible.builtin.find:
+    paths: "{{ dotfiles_src }}"
+    file_type: file
+    hidden: true
+    recurse: true
+  register: dotfiles_find
+
+- name: Create parent directories for dotfiles
+  ansible.builtin.file:
+    path: "{{ (dotfiles_dest ~ '/' ~ (item.path | relpath(dotfiles_src))) | dirname }}"
+    state: directory
+  loop: "{{ dotfiles_find.files }}"
+  loop_control: { label: "{{ item.path | relpath(dotfiles_src) }}" }
+
+- name: Create symlinks for dotfiles
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ dotfiles_dest ~ '/' ~ (item.path | relpath(dotfiles_src)) }}"
+    state: link
+    force: true
+  loop: "{{ dotfiles_find.files }}"
+  loop_control: { label: "{{ item.path | relpath(dotfiles_src) }}" }

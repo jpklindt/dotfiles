@@ -1,11 +1,14 @@
 all:
   children:
     homeservers:
-      fedora-prod:
-        ansible_host: { { vault_server_host } }
+      fedora-server:
+        ansible_host: "{{ vault_server_host }}"
         ansible_user: jpklindt
-        backup_drive_path: /dev/disk/by-id/{{ vault_backup_disk_serial } }
-        data_drive_path: /dev/disk/by-id/{{ vault_disk_2_serial }}
-    # workstations:
-    #   desktop:
-    #     ansible_host: localhost
+        backup_drive_path: "/dev/disk/by-id/{{ vault_backup_disk_serial }}"
+        data_drive_path: "/dev/disk/by-id/{{ vault_data_disk_serial }}"
+    workstations:
+      vars:
+        ansible_connection: local
+      hosts:
+        fedora-desk:
+        fedora-flex:
