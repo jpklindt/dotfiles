@@ -125,7 +125,7 @@ services:
       # Option 4: Ollama (Local)
       LLM_PROVIDER: "ollama"
       LLM_MODEL: ${OLLAMA_MODEL} # "hf.co/unsloth/gemma-4-12b-it-GGUF:Q6_K" # "qwen3:8b"
-      OLLAMA_HOST: "http://192.168.2.123:11434"
+      OLLAMA_HOST: "http://${OLLAMA_IP}:${OLLAMA_PORT}"
       OLLAMA_CONTEXT_LENGTH: "16384" # Sets Ollama NumCtx (context window)
       TOKEN_LIMIT: 4000 # Recommended for smaller models
 

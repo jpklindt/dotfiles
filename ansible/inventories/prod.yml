@@ -2,10 +2,10 @@ all:
   children:
     homeservers:
       fedora-prod:
-        ansible_host: 192.168.2.69
+        ansible_host: { { vault_server_host } }
         ansible_user: jpklindt
-        backup_drive_path: /dev/disk/by-id/ata-SAMSUNG_HD103SI_S1VSJDWZ527850
-        data_drive_path: /dev/disk/by-id/ata-ST3500630AS_6QG39RKG
+        backup_drive_path: /dev/disk/by-id/{{ vault_backup_disk_serial } }
+        data_drive_path: /dev/disk/by-id/{{ vault_disk_2_serial }}
     # workstations:
     #   desktop:
     #     ansible_host: localhost

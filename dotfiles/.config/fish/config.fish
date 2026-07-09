@@ -14,6 +14,8 @@ set -Ux LC_CTYPE en_US.UTF-8
 set -Ux LC_ALL en_US.UTF-8
 set -Ux EDITOR nvim
 set -Ux VISUAL nvim
+
+set -x LIBVIRT_DEFAULT_URI "qemu:///system"
 # =============================================================================
 #
 # binds
