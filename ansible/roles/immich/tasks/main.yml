@@ -17,7 +17,7 @@
 - name: Copy static quadlet files
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "~/.config/containers/systemd/{{ item }}"
+    dest: "{{ lookup('env', 'HOME') }}/.config/containers/systemd/{{ item }}"
     mode: "0644"
   loop:
     - immich.pod
@@ -27,7 +27,7 @@
 - name: Template quadlet files
   ansible.builtin.template:
     src: "{{ item }}.j2"
-    dest: "~/.config/containers/systemd/{{ item }}"
+    dest: "{{ lookup('env', 'HOME') }}/.config/containers/systemd/{{ item }}"
     mode: "0644"
   loop:
     - immich-server.container

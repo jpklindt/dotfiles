@@ -2,7 +2,7 @@
 # tasks file for roles/apps
 - name: Quadlet directory check
   ansible.builtin.file:
-    path: "~/.config/containers/systemd"
+    path: "{{ lookup('env', 'HOME') }}/.config/containers/systemd"
     state: directory
     mode: "0755"
 

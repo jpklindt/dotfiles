@@ -48,7 +48,7 @@
 - name: Copy caddy quadlet
   ansible.builtin.copy:
     src: "caddy.container"
-    dest: "~/.config/containers/systemd/caddy.container"
+    dest: "{{ lookup('env', 'HOME') }}/.config/containers/systemd/caddy.container"
     mode: "0644"
   notify: Reload systemd
 

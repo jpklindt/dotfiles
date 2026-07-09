@@ -1,11 +1,11 @@
-# prevent systemd
-.config/systemd/user/default.target.wants/
-.config/systemd/user/sockets.target.wants/
-
 # ansible
-.vagrant
 .ansible
 vault.yml
 
+# vagrant
+ansible/.vagrant
+
 # docker
 .env
+
+
