@@ -10,3 +10,6 @@ Environment=POSTGRES_USER={{ vault_paperless_db_user }}
 Environment=POSTGRES_PASSWORD={{ vault_paperless_db_password }}
 Volume={{ paperless_db_dir }}:/var/lib/postgresql/data:Z
 HealthCmd=pg_isready -U {{ vault_paperless_db_user }} -d {{ paperless_db_name }}
+
+[Service]
+TimeoutStartSec=900
