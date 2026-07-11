@@ -7,7 +7,7 @@
     state: enabled
     immediate: true
 
-- name: Allow App Ports in firewalld for direct Vagrant testing
+- name: Allow Caddy ports in firewalld
   become: true
   become_user: root
   ansible.posix.firewalld:
@@ -18,7 +18,3 @@
   loop:
     - 80/tcp
     - 443/tcp
-    - 2283/tcp # Immich
-    - 3001/tcp # Uptime Kuma
-    - 8080/tcp # Nextcloud
-    - 8010/tcp # Paperless

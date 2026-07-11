@@ -2,7 +2,7 @@
 - name: Copy container file
   ansible.builtin.copy:
     src: "it-tools.container"
-    dest: "{{ lookup('env', 'HOME') }}/.config/containers/systemd/it-tools.container"
+    dest: "~/.config/containers/systemd/it-tools.container"
     mode: "0644"
   notify: Reload systemd
 
