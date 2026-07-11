@@ -1,8 +1,0 @@
-[Path]
-PathChanged=/home/jpklindt/drive/ 
-# %h/drive
-Unit=rclone.service
-# trigger on changes to a file not just create/delete
-
-[Install]
-WantedBy=default.target

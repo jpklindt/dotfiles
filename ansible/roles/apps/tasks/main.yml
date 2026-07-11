@@ -1,10 +1,4 @@
 ---
 # tasks file for roles/apps
-- name: Quadlet directory check
-  ansible.builtin.file:
-    path: "~/.config/containers/systemd"
-    state: directory
-    mode: "0755"
-
 - name: Deploy it-tools container
   ansible.builtin.import_tasks: it-tools.yml

@@ -1,11 +1,6 @@
 ---
 - name: Provision Desk/Laptop
   hosts: workstations
-  gather_facts: true
-  tasks:
-    - name: Link dotfiles
-      ansible.builtin.include_role:
-        name: dotfiles
-        apply:
-          tags: dotfiles
+  roles:
+    - role: dotfiles
       tags: dotfiles

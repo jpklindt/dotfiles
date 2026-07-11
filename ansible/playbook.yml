@@ -13,11 +13,16 @@
   hosts: homeservers
   become: true
   become_user: "{{ vault_admin_username }}"
+  pre_tasks:
+    - name: Ensure quadlet directory exists
+      ansible.builtin.file:
+        path: "~/.config/containers/systemd"
+        state: directory
+        mode: "0755"
 
   roles:
     - infra
     - immich
     - apps
-    - paperless # paperless -> nextcloud!
+    - paperless # keep before nextcloud
     - nextcloud
-    - dotfiles

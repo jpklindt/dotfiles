@@ -43,9 +43,6 @@ Vagrant.configure("2") do |config|
       "vagrant" => ["default"]
     }
   end
-config.vm.network "forwarded_port", guest: 2283, host: 2283
-config.vm.network "forwarded_port", guest: 8080, host: 8080
-config.vm.network "forwarded_port", guest: 8010, host: 8010
 config.vm.network "forwarded_port", guest: 80, host: 80
 config.vm.network "forwarded_port", guest: 443, host: 443
 end

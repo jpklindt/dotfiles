@@ -1,11 +1,9 @@
 common_packages:
   - git
   - curl
-  - neovim
+  - vim
   - btop
   - fish
-  - docker
-  - docker-compose
   - fzf
   - kitty-terminfo
 

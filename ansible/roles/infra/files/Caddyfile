@@ -1,13 +1,17 @@
-# Nextcloud
-nextcloud.{$BASE_DOMAIN} {
-	# DNS Challenge for Let's Encrypt using Porkbun
+# Porkbun TLS config
+(porkbun) {
 	tls {
 		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+   			api_key {env.PORKBUN_API_KEY}
+   			api_secret_key {env.PORKBUN_SECRET_API_KEY}
+   		}
+   	}
+}
 
+
+# Nextcloud
+nextcloud.{$BASE_DOMAIN} {
+	import porkbun
 	# CalDAV/CardDAV well-known redirects
 	redir /.well-known/carddav /remote.php/dav/ 301
 	redir /.well-known/caldav /remote.php/dav/ 301
@@ -26,120 +30,65 @@ nextcloud.{$BASE_DOMAIN} {
 
 # Immich
 immich.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:2283
 }
 
 # Jellyfin
 jellyfin.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:8096
 }
 
 # Paperless-ngx
 paperless.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:8010
 }
 
 # Mealie
 mealie.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:9925
 }
 
 # Beszel agent
 beszel-agent.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy unix//beszel_socket/beszel.sock
 }
 
 # Beszel web interface
 beszel.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:8090 
 }
 
 # it-tools
 it-tools.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:8081
 }
 
 # uptime-kuma
 uptime-kuma.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:3001
 }
 
 # uptime
 uptime.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:3001
 }
 
 paperless-ai.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:3003
 }
 
 paperless-gpt.{$BASE_DOMAIN} {
-	tls {
-		dns porkbun {
-			api_key {env.PORKBUN_API_KEY}
-			api_secret_key {env.PORKBUN_SECRET_API_KEY}
-		}
-	}
+	import porkbun
 	reverse_proxy localhost:3004
 }
 
