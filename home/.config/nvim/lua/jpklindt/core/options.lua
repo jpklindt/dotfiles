@@ -1,10 +1,9 @@
-vim.cmd("let g:netrw_liststyle = 3")
+vim.g.netrw_liststyle = 3 -- (vim.cmd wrapper not needed for g: vars)
 
 local opt = vim.opt
 
 opt.relativenumber = true
 opt.number = true
-
 
 -- tabs & indent
 opt.tabstop = 2
@@ -20,18 +19,20 @@ opt.smartcase = true
 
 opt.cursorline = true
 
--- termguicolors with true color term
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
 
--- backspace
 opt.backspace = "indent,eol,start"
 
--- clipboard
---
--- opt.clipboard:append("unnamedplus")
+-- clipboard (was in init.lua)
+opt.clipboard = "unnamedplus"
 
--- split
+-- splits
 opt.splitright = true
 opt.splitbelow = true
+
+opt.undofile = true -- persistent undo across sessions
+opt.scrolloff = 8 -- context above/below cursor (you use 12 in VS Code)
+opt.updatetime = 250 -- faster gitsigns/diagnostics refresh
+opt.confirm = true -- ask instead of failing on :q with changes

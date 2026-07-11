@@ -3,21 +3,15 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
-		-- Ensure mason runs first
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+		{ "folke/lazydev.nvim", ft = "lua", opts = {} },
+		{ "antosha417/nvim-lsp-file-operations", config = true },
+		"saghen/blink.cmp", -- if using nvim-cmp instead: "hrsh7th/cmp-nvim-lsp"
 	},
 	config = function()
-		local lspconfig = require("lspconfig")
-		local mason_lspconfig = require("mason-lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		local keymap = vim.keymap
 
-		local keymap = vim.keymap -- for conciseness
-
-		-- Setup LspAttach Keymaps
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
@@ -42,29 +36,70 @@ return {
 				opts.desc = "Show line diagnostics"
 				keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 				opts.desc = "Go to previous diagnostic"
-				keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+				keymap.set("n", "[d", function()
+					vim.diagnostic.jump({ count = -1 })
+				end, opts)
 				opts.desc = "Go to next diagnostic"
-				keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+				keymap.set("n", "]d", function()
+					vim.diagnostic.jump({ count = 1 })
+				end, opts)
 				opts.desc = "Show documentation for what is under cursor"
 				keymap.set("n", "K", vim.lsp.buf.hover, opts)
 				opts.desc = "Restart LSP"
-				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+				keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", opts)
 			end,
 		})
 
-		-- Setup Capabilities
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		-- diagnostic signs, new API (replaces the sign_define loop)
+		vim.diagnostic.config({
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = "󰠠 ",
+					[vim.diagnostic.severity.INFO] = " ",
+				},
+			},
+			virtual_text = true,
+			severity_sort = true,
+		})
 
-		-- Setup Diagnostic Icons
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
+		-- capabilities for the completion engine
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
+		-- nvim-cmp variant:
+		-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		-- THE NEW API PATTERN:
-		-- Setup mason-lspconfig with ensure_installed AND handlers combined
-		mason_lspconfig.setup({
+		-- defaults for every server
+		vim.lsp.config("*", { capabilities = capabilities })
+
+		-- per-server overrides (replaces the handlers table)
+		vim.lsp.config("svelte", {
+			on_attach = function(client, _)
+				vim.api.nvim_create_autocmd("BufWritePost", {
+					pattern = { "*.js", "*.ts" },
+					callback = function(ctx)
+						client:notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+					end,
+				})
+			end,
+		})
+		vim.lsp.config("graphql", {
+			filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+		})
+		vim.lsp.config("emmet_ls", {
+			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+		})
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					completion = { callSnippet = "Replace" },
+				},
+			},
+		})
+
+		-- mason-lspconfig v2: installs the list and calls vim.lsp.enable() for
+		-- installed servers automatically (automatic_installation is gone)
+		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"clangd",
 				"dockerls",
@@ -76,71 +111,6 @@ return {
 				"svelte",
 				"graphql",
 				"emmet_ls",
-			},
-			automatic_installation = true,
-
-			-- Replace setup_handlers with this table
-			handlers = {
-				-- Default handler for installed servers
-				function(server_name)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
-
-				-- Specific server overrides
-				["svelte"] = function()
-					lspconfig["svelte"].setup({
-						capabilities = capabilities,
-						on_attach = function(client, bufnr)
-							vim.api.nvim_create_autocmd("BufWritePost", {
-								pattern = { "*.js", "*.ts" },
-								callback = function(ctx)
-									client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-								end,
-							})
-						end,
-					})
-				end,
-
-				["graphql"] = function()
-					lspconfig["graphql"].setup({
-						capabilities = capabilities,
-						filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-					})
-				end,
-
-				["emmet_ls"] = function()
-					lspconfig["emmet_ls"].setup({
-						capabilities = capabilities,
-						filetypes = {
-							"html",
-							"typescriptreact",
-							"javascriptreact",
-							"css",
-							"sass",
-							"scss",
-							"less",
-							"svelte",
-						},
-					})
-				end,
-
-				["lua_ls"] = function()
-					lspconfig["lua_ls"].setup({
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								diagnostics = {
-									globals = { "vim" },
-								},
-								completion = {
-									callSnippet = "Replace",
-								},
-							},
-						},
-					})
-				end,
 			},
 		})
 	end,

@@ -51,7 +51,10 @@ return {
 		-- configure lualine with modified theme
 		lualine.setup({
 			options = {
-				theme = "gruvbox-material",
+				-- "auto" derives from the active colorscheme, so it follows
+				-- catppuccin's day/night flavour switch. Use "catppuccin" instead
+				-- if you want the branded catppuccin statusline look.
+				theme = "auto",
 			},
 			sections = {
 				lualine_x = {
