@@ -18,10 +18,6 @@
     mode: "0644"
   notify: Reload systemd
 
-# - name: Get actual user UID for Systemd
-#   ansible.builtin.command: id -u
-#   register: infra_uptime_kuma_dynamic_uid
-#   changed_when: false
 - name: Start uptime-kuma service
   ansible.builtin.systemd:
     name: uptime-kuma.service
@@ -29,5 +25,3 @@
     enabled: true
     scope: user
     daemon_reload: true
-  # environment:
-  #   XDG_RUNTIME_DIR: "/run/user/{{ infra_uptime_kuma_dynamic_uid.stdout }}"

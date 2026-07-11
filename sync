@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
-exec ansible-playbook -i ansible/inventories/prod.yml ansible/site.yml \
+exec ansible-playbook -i ansible/inventories/prod.yml ansible/workstation.yml \
 --limit "$(hostname)" "$@"

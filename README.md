@@ -22,9 +22,13 @@ My dotfiles, symlinked by the `dotfiles` role.
 
 ### sync
 
-Picks and executes the correct playbook for the current device.
+Provisions the current machine with the `workstations.yml` playbook.
 
 #### Usage
 
     ./sync --tags dotfiles                  # dotfiles tasks only
     ./sync --tags dotfiles --check --diff   # preview changes
+
+### deploy
+
+Provisions the home server with the `server.yml` playbook. 

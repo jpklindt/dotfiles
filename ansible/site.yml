@@ -1,2 +1,3 @@
 ---
 - ansible.builtin.import_playbook: workstation.yml
+- ansible.builtin.import_playbook: server.yml

@@ -1,6 +1,6 @@
 ---
 - name: Base Configuration
-  hosts: all
+  hosts: homeservers
   roles:
     - base
 
