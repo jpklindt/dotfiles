@@ -19,7 +19,7 @@ return {
 
 		-- Snacks.picker: telescope-style floating list. ui_select = true takes over
 		-- vim.ui.select (code-action menus etc.) — the half of dressing that `input` doesn't.
-		picker = { enabled = true, ui_select = true },
+		-- picker = { enabled = true, ui_select = true },
 
 		-- indent guides → replaces indent-blankline (keeps your ┊ char)
 		indent = {
@@ -147,13 +147,13 @@ return {
 			end,
 			desc = "Toggle terminal",
 		},
-		{
-			"<leader>ff",
-			function()
-				Snacks.picker.files()
-			end,
-			desc = "Find files",
-		},
+		-- {
+		-- 	"<leader>ff",
+		-- 	function()
+		-- 		Snacks.picker.files()
+		-- 	end,
+		-- 	desc = "Find files",
+		-- },
 		{
 			"<leader>fr",
 			function()
@@ -161,20 +161,20 @@ return {
 			end,
 			desc = "Recent files",
 		},
-		{
-			"<leader>fs",
-			function()
-				Snacks.picker.grep()
-			end,
-			desc = "Live grep",
-		},
-		{
-			"<leader>fc",
-			function()
-				Snacks.picker.grep_word()
-			end,
-			desc = "Grep word",
-		},
+		-- {
+		-- 	"<leader>fs",
+		-- 	function()
+		-- 		Snacks.picker.grep()
+		-- 	end,
+		-- 	desc = "Live grep",
+		-- },
+		-- {
+		-- 	"<leader>fc",
+		-- 	function()
+		-- 		Snacks.picker.grep_word()
+		-- 	end,
+		-- 	desc = "Grep word",
+		-- },
 		{
 			"<leader>ft",
 			function()
