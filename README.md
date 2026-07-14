@@ -24,11 +24,10 @@ My dotfiles, symlinked by the `dotfiles` role.
 
 Provisions the current machine with the `workstations.yml` playbook.
 
-#### Usage
-
-    ./sync --tags dotfiles                  # dotfiles tasks only
-    ./sync --tags dotfiles --check --diff   # preview changes
-
 ### deploy
 
-Provisions the home server with the `server.yml` playbook. 
+Provisions the home server with the `server.yml` playbook.
+
+### stow
+
+Symlinks dotfiles into home directory. Requires GNU Stow.

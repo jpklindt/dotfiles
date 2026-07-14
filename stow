@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# stow -n -v -d ~/dotfiles -t ~ --no-folding home   # dry run: read the LINK: lines, check for CONFLICT
+stow    -v -d ~/dotfiles -t ~ --no-folding home   # do it
+
+

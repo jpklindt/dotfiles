@@ -11,7 +11,7 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
 
-opt.wrap = false
+opt.wrap = true
 
 -- search
 opt.ignorecase = true
@@ -36,3 +36,6 @@ opt.undofile = true -- persistent undo across sessions
 opt.scrolloff = 8 -- context above/below cursor (you use 12 in VS Code)
 opt.updatetime = 250 -- faster gitsigns/diagnostics refresh
 opt.confirm = true -- ask instead of failing on :q with changes
+opt.sidescrolloff = 8
+opt.pumheight = 10
+opt.virtualedit = "block"
