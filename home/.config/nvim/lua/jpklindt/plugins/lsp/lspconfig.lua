@@ -106,6 +106,17 @@ return {
 				},
 			},
 		})
+		-- remark_ls: give the client a non-null `remark` settings section.
+		-- unified-language-server 4.0.1 does `Boolean(raw.requireConfig)` on the
+		-- workspace/configuration response and crashes (exit 1) when Neovim answers
+		-- null for a missing section. Returning an object sidesteps the upstream bug.
+		vim.lsp.config("remark_ls", {
+			settings = {
+				remark = {
+					requireConfig = false,
+				},
+			},
+		})
 
 		-- mason-lspconfig v2: installs the list and calls vim.lsp.enable() for
 		-- installed servers automatically (automatic_installation is gone)
