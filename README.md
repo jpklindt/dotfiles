@@ -18,7 +18,7 @@ Legacy compose stacks, still deployed on my home server via rootless podman. Als
 
 ### home/
 
-My dotfiles, symlinked by the `dotfiles` role.
+My dotfiles, symlinked by the stow script.
 
 ### sync
 
