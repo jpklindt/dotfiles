@@ -30,3 +30,7 @@ keymap.set("x", "<C-j>", ":m '>+1<CR>gv", { desc = "Move selection down", silent
 keymap.set("x", "<C-k>", ":m '<-2<CR>gv", { desc = "Move selection up", silent = true })
 keymap.set("x", "<C-h>", "<gv", { desc = "Indent selection left" })
 keymap.set("x", "<C-l>", ">gv", { desc = "Indent selection right" })
+
+-- reindent whole buffer via indentexpr (treesitter), no prettier involved;
+-- fixes indent drift without touching quotes/semicolons/etc.
+keymap.set("n", "<leader>ri", "mzgg=Gg`z", { desc = "Reindent whole buffer" })

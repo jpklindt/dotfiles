@@ -1,5 +1,187 @@
-" Sync the copy buffer to your system clipboard
-set clipboard+=unnamedplus
+set number
+set relativenumber
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set showmode
 
-" Map 'jk' to exit insert mode
+set scrolloff=8
+set sidescrolloff=8
+
+set virtualedit=block
+
+set clipboard+=unnamedplus
+set ideaput
+
+set timeoutlen=500
+
+" ---------------------------------------------------------------------------
+" Extensions
+" ---------------------------------------------------------------------------
+set surround
+set commentary
+
+set easymotion
+set which-key
+let g:EasyMotion_smartcase = 1
+
+set highlightedyank
+set ReplaceWithRegister
+set CamelCaseMotion
+set targets
+
+set argtextobj      " aa / ia  parameter
+set functextobj     " af / if  function
+set classtextobj    " ac / ic  class
+set textobj-entire  " ae / ie
+
+set multiple-cursors
+set matchit
+set exchange
+set NERDTree
+
+let mapleader = " "
+
+map s <Plug>(easymotion-bd-fn)
+
+xmap S <Plug>VSurround
+
 inoremap jk <Esc>
+
+nnoremap <leader>nh :nohlsearch<CR>
+
+nnoremap <leader>+ <C-a>
+nnoremap <leader>- <C-x>
+
+" Splits
+nnoremap <leader>sh <C-w>s
+nnoremap <leader>sv <C-w>v
+nnoremap <leader>se <C-w>=
+nnoremap <leader>sx :close<CR>
+nnoremap <leader>sm :action MaximizeEditorInSplit<CR>
+
+" Tabs
+nnoremap <leader>to :action NewFile<CR>
+nnoremap <leader>tx :action CloseContent<CR>
+nnoremap <leader>tn :action NextTab<CR>
+nnoremap <leader>tp :action PreviousTab<CR>
+nnoremap <leader>tf :action SplitVertically<CR>
+
+" Comment toggle
+nmap <leader>rc gcc
+vmap <leader>rc gc
+
+" Move / indent selection
+xnoremap <C-j> :m '>+1<CR>gv
+xnoremap <C-k> :m '<-2<CR>gv
+xnoremap <C-h> <gv
+xnoremap <C-l> >gv
+
+" Splitter navigation (vim-tmux-navigator's <C-hjkl> in nvim)
+nnoremap <C-h> :action PrevSplitter<CR>
+nnoremap <C-l> :action NextSplitter<CR>
+
+nnoremap ff :action GotoFile<CR>
+nnoremap fg :action FindInPath<CR>
+nnoremap fc :action GotoFile<CR>
+nnoremap fz :action FindInPath<CR>
+nnoremap fw :action FindInPath<CR>
+xnoremap fw :action FindInPath<CR>
+
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fw :action FindInPath<CR>
+nnoremap <leader>fr :action RecentFiles<CR>
+nnoremap <leader>fs :action GotoSymbol<CR>
+
+nnoremap <leader>fR :action Replace<CR>
+
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gD :action GotoTypeDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gt :action GotoTypeDeclaration<CR>
+nnoremap gR :action ShowUsages<CR>
+nnoremap K :action QuickJavaDoc<CR>
+
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+vnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap <leader>rn :action RenameElement<CR>
+nnoremap <leader>rr :action RenameElement<CR>
+nnoremap <leader>d  :action ShowErrorDescription<CR>
+nnoremap <leader>D  :action ActivateProblemsViewToolWindow<CR>
+nnoremap [d :action GotoPreviousError<CR>
+nnoremap ]d :action GotoNextError<CR>
+
+nnoremap ]h :action VcsShowNextChangeMarker<CR>
+nnoremap [h :action VcsShowPrevChangeMarker<CR>
+
+nnoremap <leader>hp :action VcsShowCurrentChangeMarker<CR>
+nnoremap <leader>hr :action Vcs.RollbackChangedLines<CR>
+nnoremap <leader>hR :action ChangesView.Revert<CR>
+nnoremap <leader>hs :action Git.Stage.Add<CR>
+nnoremap <leader>hu :action Git.Stage.Reset<CR>
+nnoremap <leader>hb :action Annotate<CR>
+nnoremap <leader>hB :action Annotate<CR>
+nnoremap <leader>hd :action Vcs.ShowTabbedFileHistory<CR>
+
+nnoremap <leader>gb :action Git.Branches<CR>
+nnoremap <leader>gc :action CheckinProject<CR>
+nnoremap <leader>gp :action Vcs.Push<CR>
+nnoremap <leader>gl :action Vcs.UpdateProject<CR>
+nnoremap <leader>gs :action Vcs.Show.Local.Changes<CR>
+
+nnoremap <leader>xx :action ActivateProblemsViewToolWindow<CR>
+nnoremap <leader>xX :action ActivateProblemsViewToolWindow<CR>
+nnoremap <leader>cs :action ActivateStructureToolWindow<CR>
+nnoremap <leader>cl :action FindUsages<CR>
+
+nnoremap <leader>ee :action ActivateProjectToolWindow<CR>
+nnoremap <leader>ef :action SelectInProjectView<CR>
+nnoremap <leader>tt :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>co :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>z  :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>zf :action ToggleFullScreen<CR>
+nnoremap <leader>.  :action NewScratchFile<CR>
+
+" Toggles
+nnoremap <leader>uw :action EditorToggleUseSoftWraps<CR>
+nnoremap <leader>ul :action EditorToggleShowLineNumbers<CR>
+
+nnoremap <leader>mp :action ReformatCode<CR>
+vnoremap <leader>mp :action ReformatCode<CR>
+
+" Swap argument with next/previous (treesitter-textobjects swap)
+nnoremap <leader>na :action MoveElementRight<CR>
+nnoremap <leader>pa :action MoveElementLeft<CR>
+
+nnoremap <leader>a :action HarpoonerAddFile<CR>
+nnoremap <C-e>     :action HarpoonerToggleMenu<CR>
+nnoremap <leader>1 :action HarpoonerOpenFile0<CR>
+nnoremap <leader>2 :action HarpoonerOpenFile1<CR>
+nnoremap <leader>3 :action HarpoonerOpenFile2<CR>
+nnoremap <leader>4 :action HarpoonerOpenFile3<CR>
+
+xmap <leader>rs' S'
+xmap <leader>rs" S"
+xmap <leader>rs` S`
+xmap <leader>rs´ S`
+xmap <leader>rs( S)
+xmap <leader>rs) S)
+xmap <leader>rs[ S]
+xmap <leader>rs] S]
+xmap <leader>rs{ S}
+xmap <leader>rs} S}
+xmap <leader>rs< S>
+xmap <leader>rs> S>
+
+let g:WhichKeyDesc_find      = "<leader>f find"
+let g:WhichKeyDesc_git       = "<leader>g git"
+let g:WhichKeyDesc_hunks     = "<leader>h hunks"
+let g:WhichKeyDesc_splits    = "<leader>s splits"
+let g:WhichKeyDesc_tabs      = "<leader>t tabs"
+let g:WhichKeyDesc_refactor  = "<leader>r refactor"
+let g:WhichKeyDesc_surround  = "<leader>rs surround selection"
+let g:WhichKeyDesc_trouble   = "<leader>x diagnostics"
+let g:WhichKeyDesc_toggles   = "<leader>u toggles"
+let g:WhichKeyDesc_explorer  = "<leader>e explorer"
+let g:WhichKeyDesc_code      = "<leader>c code"

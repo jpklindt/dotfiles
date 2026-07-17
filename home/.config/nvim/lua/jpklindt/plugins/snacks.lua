@@ -64,26 +64,26 @@ return {
 			██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
 			╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
 				keys = {
-					{ icon = " ", key = "e", desc = "New File", action = ":ene | startinsert" },
+					{ icon = " ", key = "o", desc = "New File", action = ":ene | startinsert" },
 					{
 						icon = " ",
-						key = "f",
+						key = "ff",
 						desc = "Find File",
 						action = function()
-							Snacks.picker.files()
+							require("fff").find_files()
 						end,
 					},
 					{
 						icon = " ",
-						key = "s",
+						key = "fg",
 						desc = "Find Word",
 						action = function()
-							Snacks.picker.grep()
+							require("fff").live_grep()
 						end,
 					},
 					{
 						icon = " ",
-						key = "t",
+						key = "ee",
 						desc = "File Explorer",
 						action = function()
 							Snacks.explorer()
