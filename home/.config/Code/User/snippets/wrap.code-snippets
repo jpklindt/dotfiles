@@ -1,0 +1,106 @@
+{
+  "Wrap in pcall": {
+    "scope": "lua",
+    "prefix": "wrappcall",
+    "body": [
+      "local ok, err = pcall(function()",
+      "\t${TM_SELECTED_TEXT}",
+      "end)",
+      "if not ok then",
+      "\tvim.notify(err, vim.log.levels.ERROR)",
+      "end"
+    ],
+    "description": "Wrap selection in a protected call"
+  },
+  "Wrap in lua function": {
+    "scope": "lua",
+    "prefix": "wrapfunction",
+    "body": ["function(${1:args})", "\t${TM_SELECTED_TEXT}", "end"],
+    "description": "Wrap selection in an anonymous function"
+  },
+  "Wrap in do block": {
+    "scope": "lua",
+    "prefix": "wrapdo",
+    "body": ["do", "\t${TM_SELECTED_TEXT}", "end"],
+    "description": "Wrap selection in a do ... end block"
+  },
+  "Wrap in autocmd": {
+    "scope": "lua",
+    "prefix": "wrapautocmd",
+    "body": [
+      "vim.api.nvim_create_autocmd(\"${1:BufWritePost}\", {",
+      "\tpattern = \"${2:*}\",",
+      "\tcallback = function()",
+      "\t\t${TM_SELECTED_TEXT}",
+      "\tend,",
+      "})"
+    ],
+    "description": "Wrap selection in an autocmd callback"
+  },
+
+  // --- shell ---
+  "Wrap in shell if": {
+    "scope": "shellscript",
+    "prefix": "wrapif",
+    "body": ["if ${1:condition}; then", "\t${TM_SELECTED_TEXT}", "fi"],
+    "description": "Wrap selection in an if block"
+  },
+  "Wrap in shell function": {
+    "scope": "shellscript",
+    "prefix": "wrapfunction",
+    "body": ["${1:name}() {", "\t${TM_SELECTED_TEXT}", "}"],
+    "description": "Wrap selection in a function"
+  },
+  "Wrap in subshell": {
+    "scope": "shellscript",
+    "prefix": "wrapsubshell",
+    "body": ["(", "\t${TM_SELECTED_TEXT}", ")"],
+    "description": "Wrap selection in a subshell"
+  },
+  "Wrap in heredoc": {
+    "scope": "shellscript",
+    "prefix": "wrapheredoc",
+    "body": ["cat <<'${1:EOF}'", "${TM_SELECTED_TEXT}", "$1"],
+    "description": "Wrap selection in a quoted heredoc"
+  },
+
+  // --- typescript / javascript ---
+  "Wrap in try/catch": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact",
+    "prefix": "wraptry",
+    "body": [
+      "try {",
+      "\t${TM_SELECTED_TEXT}",
+      "} catch (${1:err}) {",
+      "\t${2:console.error($1);}",
+      "}"
+    ],
+    "description": "Wrap selection in try/catch"
+  },
+  "Wrap in async IIFE": {
+    "scope": "typescript,javascript",
+    "prefix": "wrapiife",
+    "body": ["void (async () => {", "\t${TM_SELECTED_TEXT}", "})();"],
+    "description": "Wrap selection in an immediately-invoked async function"
+  },
+  "Wrap in JSX fragment": {
+    "scope": "typescriptreact,javascriptreact",
+    "prefix": "wrapfragment",
+    "body": ["<>", "\t${TM_SELECTED_TEXT}", "</>"],
+    "description": "Wrap selection in a fragment"
+  },
+
+  // --- java ---
+  "Wrap in java try/catch": {
+    "scope": "java",
+    "prefix": "wraptry",
+    "body": [
+      "try {",
+      "\t${TM_SELECTED_TEXT}",
+      "} catch (${1:Exception} ${2:e}) {",
+      "\t${3:throw new RuntimeException($2);}",
+      "}"
+    ],
+    "description": "Wrap selection in try/catch"
+  }
+}

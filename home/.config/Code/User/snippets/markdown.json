@@ -1,0 +1,59 @@
+{
+  "Wrap in code fence": {
+    "prefix": "wrapfence",
+    "body": ["```${1:bash}", "${TM_SELECTED_TEXT}", "```"],
+    "description": "Wrap selection in a fenced code block"
+  },
+  "Wrap in details": {
+    "prefix": "wrapdetails",
+    "body": [
+      "<details>",
+      "<summary>${1:summary}</summary>",
+      "",
+      "${TM_SELECTED_TEXT}",
+      "",
+      "</details>"
+    ],
+    "description": "Wrap selection in a collapsible details block"
+  },
+  "Wrap in blockquote": {
+    "prefix": "wrapquote",
+    "body": "> ${TM_SELECTED_TEXT}",
+    "description": "Wrap selection in a blockquote"
+  },
+  "Wrap in callout": {
+    "prefix": "wrapcallout",
+    "body": ["> [!${1|NOTE,TIP,IMPORTANT,WARNING,CAUTION|}]", "> ${TM_SELECTED_TEXT}"],
+    "description": "GitHub-style admonition callout"
+  },
+  "Wrap in link": {
+    "prefix": "wraplink",
+    "body": "[${TM_SELECTED_TEXT}](${1:url})",
+    "description": "Wrap selection as link text"
+  },
+  "Wrap in image": {
+    "prefix": "wrapimage",
+    "body": "![${TM_SELECTED_TEXT}](${1:path})",
+    "description": "Wrap selection as image alt text"
+  },
+  "Wrap in footnote": {
+    "prefix": "wrapfootnote",
+    "body": ["${TM_SELECTED_TEXT}[^${1:ref}]", "", "[^$1]: ${2:note}"],
+    "description": "Wrap selection with a footnote reference"
+  },
+  "Wrap in HTML comment": {
+    "prefix": "wrapcomment",
+    "body": ["<!--", "${TM_SELECTED_TEXT}", "-->"],
+    "description": "Comment out the selection"
+  },
+  "Wrap in math block": {
+    "prefix": "wrapmath",
+    "body": ["\\$\\$", "${TM_SELECTED_TEXT}", "\\$\\$"],
+    "description": "Wrap selection in a display math block"
+  },
+  "Wrap in task list item": {
+    "prefix": "wraptask",
+    "body": "- [ ] ${TM_SELECTED_TEXT}",
+    "description": "Turn the selection into a task list item"
+  }
+}

@@ -292,7 +292,7 @@
   {
     "key": "ctrl+enter",
     "command": "code-runner.run",
-    "when": "!notebookEditorFocused",
+    "when": "!notebookEditorFocused && editorLangId != 'markdown'",
   },
   {
     "key": "ctrl+alt+n",
@@ -331,6 +331,7 @@
   {
     "key": "ctrl+alt+m",
     "command": "markdownTablePrettify.prettifyTables",
+    "when": "editorLangId == 'markdown'",
   },
   {
     "key": "alt+[Quote]",
@@ -374,7 +375,6 @@
     "command": "-workbench.action.terminal.runRecentCommand",
     "when": "accessibilityModeEnabled && terminalFocus && terminalHasBeenCreated || accessibilityModeEnabled && terminalFocus && terminalProcessSupported || accessibilityModeEnabled && accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibilityModeEnabled && accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'",
   },
-  // latex pdf preview dark mode
   {
     "key": "shift+ctrl+d",
     "command": "settings.cycle.toggleLatexInvert",
@@ -390,15 +390,14 @@
   },
   {
     "key": "ctrl+]",
-    "command": "workbench.action.zoomIn"
+    "command": "workbench.action.zoomIn",
+    "when": "editorLangId != 'markdown'"
   },
   {
     "key": "ctrl+=",
     "command": "-workbench.action.zoomIn"
   },
 
-  // flash line labels: alt+j / alt+k are taken by sidebar / aux bar above,
-  // so move flash's defaults to alt+shift+j / alt+shift+k.
   {
     "key": "alt+j",
     "command": "-flash-vscode.jump.lineDown",
@@ -419,9 +418,6 @@
     "command": "flash-vscode.jump.lineUp",
     "when": "editorTextFocus"
   },
-
-  // nvim: <C-j>/<C-k> move the visual selection. Must live here because
-  // vim.useCtrlKeys is false and ctrl+j/k are bound to navigateDown/Up above.
   {
     "key": "ctrl+j",
     "command": "editor.action.moveLinesDownAction",

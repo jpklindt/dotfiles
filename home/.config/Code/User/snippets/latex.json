@@ -1,0 +1,106 @@
+{
+  "Wrap in environment": {
+    "prefix": "wrapenv",
+    "body": ["\\begin{${1:itemize}}", "\t${TM_SELECTED_TEXT}", "\\end{$1}"],
+    "description": "Wrap selection in an arbitrary environment"
+  },
+  "Wrap in figure": {
+    "prefix": "wrapfigure",
+    "body": [
+      "\\begin{figure}[${1:htbp}]",
+      "\t\\centering",
+      "\t${TM_SELECTED_TEXT}",
+      "\t\\caption{${2:caption}}",
+      "\t\\label{fig:${3:label}}",
+      "\\end{figure}"
+    ],
+    "description": "Wrap selection in a figure with caption and label"
+  },
+  "Wrap in table": {
+    "prefix": "wraptable",
+    "body": [
+      "\\begin{table}[${1:htbp}]",
+      "\t\\centering",
+      "\t\\begin{tabular}{${2:lll}}",
+      "\t\t${TM_SELECTED_TEXT}",
+      "\t\\end{tabular}",
+      "\t\\caption{${3:caption}}",
+      "\t\\label{tab:${4:label}}",
+      "\\end{table}"
+    ],
+    "description": "Wrap selection in a table with tabular, caption and label"
+  },
+  "Wrap in equation": {
+    "prefix": "wrapequation",
+    "body": [
+      "\\begin{equation}",
+      "\t\\label{eq:${1:label}}",
+      "\t${TM_SELECTED_TEXT}",
+      "\\end{equation}"
+    ],
+    "description": "Wrap selection in a numbered equation"
+  },
+  "Wrap in align": {
+    "prefix": "wrapalign",
+    "body": ["\\begin{align}", "\t${TM_SELECTED_TEXT}", "\\end{align}"],
+    "description": "Wrap selection in align"
+  },
+  "Wrap in inline math": {
+    "prefix": "wrapmath",
+    "body": "\\(${TM_SELECTED_TEXT}\\)",
+    "description": "Wrap selection in inline math"
+  },
+  "Wrap in display math": {
+    "prefix": "wrapdisplaymath",
+    "body": ["\\[", "\t${TM_SELECTED_TEXT}", "\\]"],
+    "description": "Wrap selection in display math"
+  },
+  "Wrap in verbatim": {
+    "prefix": "wrapverbatim",
+    "body": ["\\begin{verbatim}", "${TM_SELECTED_TEXT}", "\\end{verbatim}"],
+    "description": "Wrap selection in verbatim"
+  },
+  "Wrap in lstlisting": {
+    "prefix": "wraplisting",
+    "body": [
+      "\\begin{lstlisting}[language=${1:Python}]",
+      "${TM_SELECTED_TEXT}",
+      "\\end{lstlisting}"
+    ],
+    "description": "Wrap selection in a code listing"
+  },
+  "Wrap in quote": {
+    "prefix": "wrapquote",
+    "body": ["\\begin{quote}", "\t${TM_SELECTED_TEXT}", "\\end{quote}"],
+    "description": "Wrap selection in quote"
+  },
+  "Wrap in footnote": {
+    "prefix": "wrapfootnote",
+    "body": "\\footnote{${TM_SELECTED_TEXT}}",
+    "description": "Wrap selection in a footnote"
+  },
+  "Wrap in textcolor": {
+    "prefix": "wrapcolor",
+    "body": "\\textcolor{${1:red}}{${TM_SELECTED_TEXT}}",
+    "description": "Wrap selection in \\textcolor"
+  },
+  "Wrap in href": {
+    "prefix": "wraphref",
+    "body": "\\href{${1:url}}{${TM_SELECTED_TEXT}}",
+    "description": "Wrap selection in a hyperlink"
+  },
+  "Wrap in frame (beamer)": {
+    "prefix": "wrapframe",
+    "body": [
+      "\\begin{frame}{${1:title}}",
+      "\t${TM_SELECTED_TEXT}",
+      "\\end{frame}"
+    ],
+    "description": "Wrap selection in a beamer frame"
+  },
+  "Comment out selection": {
+    "prefix": "wrapcomment",
+    "body": ["\\iffalse", "${TM_SELECTED_TEXT}", "\\fi"],
+    "description": "Block-comment the selection with \\iffalse ... \\fi"
+  }
+}

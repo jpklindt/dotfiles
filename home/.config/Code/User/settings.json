@@ -9,7 +9,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.minimap.maxColumn": 120,
   "editor.hover.enabled": "on",
-  "editor.hover.delay": 300, // You can adjust this delay as per your preference
+  "editor.hover.delay": 300, 
   "editor.hover.sticky": true,
 
   // Explorer settings
@@ -85,14 +85,11 @@
   "zenMode.hideLineNumbers": false,
   "zenMode.showTabs": "none",
 
-  // flash-vscode settings (label jumps + treesitter scope selection, like flash.nvim)
-  // labelKeys follows flash.nvim's order so labels land on the home row first.
   "flash-vscode.labelKeys": "asdfghjklqwertyuiopzxcvbnmASDFGHJKLQWERTYUIOPZXCVBNM0123456789",
   "flash-vscode.labelBackgroundColor": "#ff007c", // flash.nvim FlashLabel
   "flash-vscode.matchColor": "#3e68d7",
   "flash-vscode.dimOpacity": "0.65",
 
-  // settings cycler definitions (bound in vim.normalModeKeyBindingsNonRecursive)
   "settings.cycle": [
     {
       "id": "toggleRelativeLineNumbers",
@@ -108,14 +105,11 @@
   "vim.useSystemClipboard": true,
   "vim.autoindent": true,
   "vim.leader": "<space>",
-  // s is remapped to easymotion below (labelled jumps, like flash.nvim).
-  // sneak is off because it binds s to a 2-char search that jumps to the next
-  // match without showing labels.
   "vim.sneak": false,
   "vim.sneakUseIgnorecaseAndSmartcase": true,
   "vim.easymotion": false,
   "vim.camelCaseMotion.enable": true, // consider camelcase sections words
-  "vim.targets.enable": true, // better i / a motion understanding
+  "vim.targets.enable": true, 
   "vim.surround": true,
   "vim.replaceWithRegister": true, // gr<motion> to replace without removing from register
   "vim.highlightedyank.enable": true,
@@ -127,13 +121,13 @@
   "vim.joinspaces": true,
   "vim.useCtrlKeys": false,
   "vim.handleKeys": {
-    "<C-a>": false, // keep VS Code select-all
-    "<C-f>": false, // keep VS Code find
-    "<C-b>": false, // keep VS Code sidebar-ish habits
-    "<C-q>": false, // your close-everything bind
-    "<C-p>": false, // keep  falseopen
-    "<C-c>": false, // keep copy
-    "<C-z>": false, // keep VS Code undo shortcut
+    "<C-a>": false, 
+    "<C-f>": false, 
+    "<C-b>": false, 
+    "<C-q>": false, 
+    "<C-p>": false, 
+    "<C-c>": false, 
+    "<C-z>": false, 
   },
 
   "vim.insertModeKeyBindings": [
@@ -369,8 +363,6 @@
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      // nvim: s in visual/x mode extends the selection to the flash target.
-      // Visual S stays with vim.surround, exactly like nvim-surround.
       "before": ["s"],
       "commands": ["flash-vscode.startSelection"],
     },
@@ -382,25 +374,63 @@
       "before": ["<leader>", "m", "p"],
       "commands": ["editor.action.formatSelection"],
     },
+    {
+      "before": ["+"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["-"],
+      "commands": ["editor.action.smartSelect.shrink"],
+    },
+    {
+      "before": ["<leader>", "a", "e"],
+      "commands": ["latex-workshop.select-env"],
+    },
+    {
+      "before": ["<leader>", "i", "e"],
+      "commands": ["latex-workshop.select-envcontent"],
+    },
+    // --- <leader>w wrap layer (visual) ---
+    {
+      // quickpick of every snippet for this language containing
+      // ${TM_SELECTED_TEXT} -- see ~/.config/Code/User/snippets/
+      "before": ["<leader>", "w", "s"],
+      "commands": ["editor.action.surroundWithSnippet"],
+    },
+    {
+      // wrap the selection in a new environment (LaTeX)
+      "before": ["<leader>", "w", "e"],
+      "commands": ["latex-workshop.wrap-env"],
+    },
+    {
+      // quickpick over every LaTeX macro; no-op elsewhere
+      "before": ["<leader>", "w", "m"],
+      "commands": ["latex-workshop.surround"],
+    },
+    {
+      // emmet: wrap in an abbreviation like div.card>p*3
+      "before": ["<leader>", "w", "a"],
+      "commands": ["editor.emmet.action.wrapWithAbbreviation"],
+    },
+    {
+      "before": ["<leader>", "w", "/"],
+      "commands": ["editor.action.blockComment"],
+    },
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    // --- flash (mirrors flash.nvim: s jump, S treesitter, R remote treesitter) ---
     {
       "before": ["s"],
       "commands": ["flash-vscode.start"],
     },
     {
-      // nvim: S = flash treesitter. Shadows vim's S (= cc), use cc instead.
       "before": ["S"],
       "commands": ["flash-vscode.jump.treesitterSelection"],
     },
     {
-      // nvim: R = treesitter search / remote. Shadows replace mode.
       "before": ["R"],
       "commands": ["flash-vscode.remoteTreesitterSelection"],
     },
     {
-      // no nvim analogue: label every symbol (function/class/variable) in the file
       "before": ["<leader>", "s", "y"],
       "commands": ["flash-vscode.jump.symbol"],
     },
@@ -412,11 +442,6 @@
       "before": ["u"],
       "commands": ["undo"],
     },
-    // {
-    //   // n-character search: type freely, <CR> to confirm, then jump to a label.
-    //   "before": ["s"],
-    //   "after": ["<leader>", "<leader>", "/"],
-    // },
     {
       "before": ["<C-r>"],
       "commands": ["redo"],
@@ -701,13 +726,6 @@
       "before": ["<leader>", "m", "c"],
       "command": ["macro.rec"],
     },
-    // Dead bind, disabled: it used "command" (VSCodeVim only reads "commands")
-    // and macro.play comes from a macro extension that isn't installed.
-    // <leader>mp is now format-document, mirroring conform.nvim.
-    // {
-    //   "before": ["<leader>", "m", "p"],
-    //   "command": ["macro.play"],
-    // },
     {
       "before": ["<leader>", "m", "d"],
       "command": [
@@ -730,7 +748,6 @@
       "commands": ["todo-tree-view.focus"],
     },
 
-    // --- LSP g-binds (mirrors nvim lsp/lspconfig.lua) ---
     {
       "before": ["g", "R"],
       "commands": ["editor.action.goToReferences"],
@@ -740,12 +757,10 @@
       "commands": ["editor.action.revealDeclaration"],
     },
     {
-      // shadows vim's "insert at last insert position"
       "before": ["g", "i"],
       "commands": ["editor.action.goToImplementation"],
     },
     {
-      // shadows VSCodeVim's next-tab; <leader>tn does that
       "before": ["g", "t"],
       "commands": ["editor.action.goToTypeDefinition"],
     },
@@ -814,6 +829,49 @@
     {
       "before": ["<leader>", "u", "d"],
       "commands": ["errorLens.toggle"],
+    },
+
+    {
+      "before": ["+"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["-"],
+      "commands": ["editor.action.smartSelect.shrink"],
+    },
+
+    {
+      "before": ["<leader>", "a", "e"],
+      "commands": ["latex-workshop.select-env"],
+    },
+    {
+      "before": ["<leader>", "i", "e"],
+      "commands": ["latex-workshop.select-envcontent"],
+    },
+    {
+      "before": ["<leader>", "r", "e"],
+      "commands": ["latex-workshop.multicursor-envname"],
+    },
+    {
+      "before": ["<leader>", "a", "s"],
+      "commands": ["latex-workshop.select-section"],
+    },
+    {
+      "before": ["<leader>", "n", "e"],
+      "commands": ["latex-workshop.navigate-envpair"],
+    },
+
+    {
+      "before": ["<leader>", "w", "/"],
+      "commands": ["editor.action.blockComment"],
+    },
+    {
+      "before": ["<leader>", "w", "q"],
+      "commands": ["latex-workshop.toggle-equation-envname"],
+    },
+    {
+      "before": ["<leader>", "w", "c"],
+      "commands": ["latex-workshop.close-env"],
     },
 
     // --- splits ---
@@ -1031,7 +1089,7 @@
       "name": "latexmk",
       "command": "latexmk",
       "args": [
-        "-shell-escape", // <--- This is the crucial line
+        "-shell-escape", 
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
@@ -1045,7 +1103,7 @@
       "name": "pdflatex",
       "command": "pdflatex",
       "args": [
-        "-shell-escape", // <--- This is vital for direct pdflatex calls
+        "-shell-escape", 
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
@@ -1061,7 +1119,7 @@
   "github.copilot.nextEditSuggestions.extendedRange": true,
   "extensions.ignoreRecommendations": true,
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "workbench.preferredLightColorTheme": "Catppuccin Mocha",
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|%|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
   "todo-tree.ripgrep.ripgrep": "/usr/bin/rg",
   "editor.wordWrap": "on",
