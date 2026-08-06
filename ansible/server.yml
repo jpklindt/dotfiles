@@ -2,12 +2,14 @@
 - name: Base Configuration
   hosts: homeservers
   roles:
-    - base
+    - role: base
+      tags: [base]
 
 - name: Storage Configuration
   hosts: homeservers
   roles:
-    - storage
+    - role: storage
+      tags: [storage]
 
 - name: Deploy Apps
   hosts: homeservers
@@ -19,10 +21,18 @@
         path: "~/.config/containers/systemd"
         state: directory
         mode: "0755"
+      tags: always
 
   roles:
-    - infra
-    - immich
-    - apps
-    - paperless # keep before nextcloud
-    - nextcloud
+    - role: caddy
+      tags: [infra, caddy]
+    - role: uptime_kuma
+      tags: [infra, uptime_kuma]
+    - role: immich
+      tags: [services, immich]
+    - role: apps
+      tags: [services, it-tools, apps]
+    - role: paperless
+      tags: [services, paperless]
+    - role: nextcloud
+      tags: [services, nextcloud]

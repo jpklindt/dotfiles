@@ -1,18 +1,20 @@
-#SPDX-License-Identifier: MIT-0
 ---
 # tasks file for roles/paperless
-
-- name: Create paperless storage directories
+- name: Create Paperless base directory
   become: true
   become_user: root
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ paperless_base_dir }}"
     state: directory
     mode: "0755"
     owner: "{{ vault_admin_username }}"
     group: "{{ vault_admin_username }}"
+
+- name: Create paperless storage directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
   loop:
-    - "{{ global_hot_dir }}/paperless/"
     - "{{ paperless_db_dir }}"
     - "{{ paperless_export_dir }}"
     - "{{ paperless_media_dir }}"
@@ -23,7 +25,6 @@
 - name: Share storage directories with Nextcloud
   become: true
   become_method: containers.podman.podman_unshare
-  changed_when: false
   ansible.builtin.file:
     path: "{{ item }}"
     owner: 33

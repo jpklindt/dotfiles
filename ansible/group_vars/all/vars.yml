@@ -14,6 +14,7 @@ quadlet_dir: "~/.config/containers/systemd"
 
 ansible_ssh_extra_args: "-o SetEnv=TERM=dumb"
 
+paperless_base_dir: "{{ global_hot_dir }}/paperless"
 paperless_media_dir: "{{ global_hot_dir }}/paperless/media"
 paperless_consume_dir: "{{ global_hot_dir }}/paperless/consume"
 paperless_archive_dir: "{{ global_hot_dir }}/paperless/media/documents/archive"
@@ -26,4 +27,5 @@ nextcloud_html_dir: "{{ global_hot_dir }}/nextcloud/html"
 nextcloud_db_dir: "{{ global_hot_dir }}/nextcloud/db"
 
 immich_upload_dir: "{{ global_cold_dir }}/immich"
+immich_base_dir: "{{ global_hot_dir}}/immich"
 immich_db_dir: "{{ global_hot_dir }}/immich/db"

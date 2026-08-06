@@ -1,18 +1,30 @@
 ---
 # tasks file for roles/immich
 
-- name: Create Immich storage directories
+- name: Create Immich base directory
   become: true
   become_user: root
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ immich_base_dir }}"
     state: directory
     mode: "0755"
     owner: "{{ vault_admin_username }}"
     group: "{{ vault_admin_username }}"
-  loop:
-    - "{{ immich_upload_dir }}"
-    - "{{ immich_db_dir }}"
+
+- name: Create Immich upload directory
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "{{ immich_upload_dir }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
+
+- name: Create Immich db directory
+  ansible.builtin.file:
+    path: "{{ immich_db_dir }}"
+    state: directory
 
 - name: Deploy immich quadlets
   ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/quadlet.yml"

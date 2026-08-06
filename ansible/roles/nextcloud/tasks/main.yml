@@ -12,15 +12,19 @@
     owner: "{{ vault_admin_username }}"
     group: "{{ vault_admin_username }}"
 
-- name: Create Nextcloud storage directories
+- name: Create Nextcloud HTML directory
+  ansible.builtin.file:
+    path: "{{ nextcloud_html_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Create Nextcloud data and db directories # noqa risky-file-permissions
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    # mode: "0755"
   loop:
-    - "{{ nextcloud_data_dir }}"
-    - "{{ nextcloud_html_dir }}"
     - "{{ nextcloud_db_dir }}"
+    - "{{ nextcloud_data_dir }}"
 
 - name: Own data and html dirs as container www-data
   become: true
