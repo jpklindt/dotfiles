@@ -2,3 +2,4 @@
 extra_packages:
   - podman
   - rclone
+  - restic

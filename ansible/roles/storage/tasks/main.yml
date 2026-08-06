@@ -18,5 +18,7 @@
     path: "{{ global_backup_dir }}/{{ item }}"
     state: directory
     mode: "0755"
+    owner: "{{ vault_admin_username }}"
+    group: "{{ vault_admin_username }}"
   loop:
     - "restic"

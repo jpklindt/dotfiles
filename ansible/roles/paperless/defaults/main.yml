@@ -7,8 +7,6 @@ paperless_allowed_hosts: "{{ paperless_domain }},localhost,127.0.0.1"
 paperless_overwrite_protocol: "https"
 paperless_ocr_language: "eng"
 
-paperless_db_name: "paperless"
-
 paperless_filename_format: !unsafe "{{ document_type }}/{{ added_year }}-{{ added_month }}_{{ title }}"
 
 paperless_ai_enabled: true

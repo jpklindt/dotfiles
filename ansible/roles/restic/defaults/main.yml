@@ -18,19 +18,19 @@ restic_sources:
 restic_databases:
   - {
       container: nextcloud-database,
-      cmd: "pg_dumpall -U {{ ... }}",
+      cmd: "pg_dumpall -U {{ vault_nextcloud_db_user }}",
       file: nextcloud.sql,
       tags: [db, nextcloud],
     }
   - {
       container: immich-database,
-      cmd: "pg_dumpall -U {{ ... }}",
+      cmd: "pg_dumpall -U {{ vault_immich_db_user }}",
       file: immich.sql,
       tags: [db, immich],
     }
   - {
       container: paperless-db,
-      cmd: "pg_dump -U {{ ... }} paperless",
+      cmd: "pg_dumpall -U {{ vault_paperless_db_user }} {{ paperless_db_name }}",
       file: paperless.sql,
       tags: [db, paperless],
     }

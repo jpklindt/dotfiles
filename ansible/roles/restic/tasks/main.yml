@@ -1,3 +1,61 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for roles/backup
+- name: Verify backup sources
+  ansible.builtin.stat:
+    path: "{{ item.path }}"
+  loop: "{{ restic_sources }}"
+  loop_control: { label: "{{ item.path }}" }
+  register: restic_source_stat
+
+- name: Assert sources
+  ansible.builtin.assert:
+    that: item.stat.isdir | default(false)
+    fail_msg: "restic source {{ item.item.path }} is missing or invalid"
+  loop: "{{ restic_source_stat.results }}"
+  loop_control: { label: "{{ item.item.path }}" }
+
+- name: Ensure config directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+  loop:
+    - "~/.config/restic"
+    - "~/.config/systemd/user"
+
+- name: Template restic environment file
+  ansible.builtin.template:
+    src: restic-env.j2
+    dest: "~/.config/restic/env"
+    mode: "0600"
+
+- name: Initialise local restic repository
+  ansible.builtin.command: restic init
+  environment:
+    RESTIC_REPOSITORY: "{{ restic_repo_local }}"
+    RESTIC_PASSWORD: "{{ vault_restic_password }}"
+  args:
+    creates: "{{ restic_repo_local }}/config"
+
+- name: Install restic units
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "~/.config/systemd/user/{{ item }}"
+    mode: "0644"
+  loop: [restic-backup.timer]
+  register: restic_units_static
+
+- name: Template restic units
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "~/.config/systemd/user/{{ item }}"
+    mode: "0644"
+  loop: [restic-backup.service]
+  register: restic_units_templated
+
+- name: Enable restic timer
+  ansible.builtin.systemd:
+    name: restic-backup.timer
+    state: started
+    enabled: true
+    scope: user
+    daemon_reload: "{{ restic_units_static is changed or restic_units_templated is changed }}"

@@ -21,6 +21,7 @@ paperless_archive_dir: "{{ global_hot_dir }}/paperless/media/documents/archive"
 paperless_db_dir: "{{ global_hot_dir }}/paperless/db"
 paperless_export_dir: "{{ global_hot_dir }}/paperless/export"
 paperless_data_dir: "{{ global_hot_dir }}/paperless/data"
+paperless_db_name: "paperless"
 
 nextcloud_data_dir: "{{ global_hot_dir }}/nextcloud/data"
 nextcloud_html_dir: "{{ global_hot_dir }}/nextcloud/html"

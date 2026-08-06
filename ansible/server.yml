@@ -36,3 +36,5 @@
       tags: [services, paperless]
     - role: nextcloud
       tags: [services, nextcloud]
+    - role: restic
+      tags: [backup, restic]
