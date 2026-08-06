@@ -33,35 +33,13 @@
     - "{{ nextcloud_data_dir }}"
     - "{{ nextcloud_html_dir }}"
 
-
-- name: Copy static quadlet files
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "~/.config/containers/systemd/{{ item }}"
-    mode: "0644"
-  loop:
-    - nextcloud.pod
-    - nextcloud-valkey.container
-    - nextcloud-cron.timer
-  notify: Reload systemd
-
-- name: Template quadlet files
-  ansible.builtin.template:
-    src: "{{ item }}.j2"
-    dest: "~/.config/containers/systemd/{{ item }}"
-    mode: "0644"
-  loop:
-    - nextcloud-cron.container
-    - nextcloud-database.container
-    - nextcloud-server.container
-  notify:
-    - Reload systemd
-    - Restart nextcloud server
-
-- name: Start Nextcloud pod
-  ansible.builtin.systemd:
-    name: nextcloud-pod.service
-    state: started
-    enabled: true
-    scope: user
-    daemon_reload: true
+- name: Deploy nextcloud quadlets
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/quadlet.yml"
+  vars:
+    quadlet_service: nextcloud-pod.service
+    quadlet_files:
+      [nextcloud.pod, nextcloud-valkey.container, nextcloud-cron.timer]
+    quadlet_templates:
+      - nextcloud-cron.container
+      - nextcloud-database.container
+      - nextcloud-server.container

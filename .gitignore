@@ -4,6 +4,7 @@ vault.yml
 
 # vagrant
 ansible/.vagrant
+.vault-pass
 
 # docker
 .env

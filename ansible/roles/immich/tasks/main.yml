@@ -14,31 +14,12 @@
     - "{{ immich_upload_dir }}"
     - "{{ immich_db_dir }}"
 
-- name: Copy static quadlet files
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "~/.config/containers/systemd/{{ item }}"
-    mode: "0644"
-  loop:
-    - immich.pod
-    - immich-redis.container
-  notify: Reload systemd
-
-- name: Template quadlet files
-  ansible.builtin.template:
-    src: "{{ item }}.j2"
-    dest: "~/.config/containers/systemd/{{ item }}"
-    mode: "0644"
-  loop:
-    - immich-server.container
-    - immich-database.container
-    - immich-machine-learning.container
-  notify: Reload systemd
-
-- name: Start Immich pod
-  ansible.builtin.systemd:
-    name: immich-pod.service
-    state: started
-    enabled: true
-    scope: user
-    daemon_reload: true
+- name: Deploy immich quadlets
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/quadlet.yml"
+  vars:
+    quadlet_service: immich-pod.service
+    quadlet_files: [immich.pod, immich-redis.container]
+    quadlet_templates:
+      - immich-server.container
+      - immich-database.container
+      - immich-machine-learning.container

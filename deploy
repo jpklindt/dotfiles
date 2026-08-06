@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
+export ANSIBLE_CONFIG="$(dirname "$0")/ansible/ansible.cfg"
 exec ansible-playbook -i ansible/inventories/prod.yml ansible/server.yml \
-  --limit homeservers --ask-vault-pass "$@"
+  --limit homeservers "$@"

@@ -1,0 +1,43 @@
+---
+restic_repo_local: "{{ global_backup_dir }}/restic"
+restic_repo_offsite: "rclone:gdrive:ResticBackups"
+
+restic_sources:
+  - { path: "{{ nextcloud_data_dir }}", tags: [nextcloud] }
+  - { path: "{{ nextcloud_html_dir }}", tags: [nextcloud] }
+  - {
+      path: "{{ immich_upload_dir }}",
+      tags: [immich],
+      exclude: ["thumbs", "encoded-video"],
+    }
+  - { path: "{{ paperless_data_dir }}", tags: [paperless] }
+  - { path: "{{ paperless_media_dir }}", tags: [paperless] }
+  - { path: "{{ global_hot_dir }}/caddy", tags: [infra] }
+  - { path: "{{ global_hot_dir }}/uptime-kuma", tags: [infra] }
+
+restic_databases:
+  - {
+      container: nextcloud-database,
+      cmd: "pg_dumpall -U {{ ... }}",
+      file: nextcloud.sql,
+      tags: [db, nextcloud],
+    }
+  - {
+      container: immich-database,
+      cmd: "pg_dumpall -U {{ ... }}",
+      file: immich.sql,
+      tags: [db, immich],
+    }
+  - {
+      container: paperless-db,
+      cmd: "pg_dump -U {{ ... }} paperless",
+      file: paperless.sql,
+      tags: [db, paperless],
+    }
+
+restic_retention:
+  nextcloud: { keep-daily: 30, keep-monthly: 12 }
+  immich: { keep-daily: 14, keep-monthly: 6 }
+  paperless: { keep-daily: 30, keep-monthly: 12 }
+  infra: { keep-daily: 14, keep-monthly: 6 }
+  db: { keep-daily: 30, keep-monthly: 12 }

@@ -1,0 +1,25 @@
+---
+- name: Copy static quadlet files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ quadlet_dir }}/{{ item }}"
+    mode: "0644"
+  loop: "{{ quadlet_files | default([]) }}"
+  register: quadlet_copied
+
+- name: Copy templated quadlet files
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ quadlet_dir}}/{{ item }}"
+    mode: "0644"
+  loop: "{{ quadlet_templates | default([]) }}"
+  register: quadlet_templated
+
+- name: Ensure {{ quadlet_service }} is running and current
+  ansible.builtin.systemd:
+    name: "{{quadlet_service }}"
+    state: >-
+      {{ 'restarted' if (quadlet_copied is changed or quadlet_templated is changed or quadlet_extra_changed | default(false)) else 'started' }}
+    enabled: true
+    scope: user
+    daemon_reload: true

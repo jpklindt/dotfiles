@@ -9,9 +9,6 @@ paperless_overwrite_protocol: "https"
 paperless_ocr_language: "eng"
 
 paperless_db_name: "paperless"
-paperless_db_dir: "{{ global_hot_dir }}/paperless/db"
-paperless_export_dir: "{{ global_hot_dir }}/paperless/export"
-paperless_data_dir: "{{ global_hot_dir }}/paperless/data"
 
 paperless_filename_format: !unsafe "{{ document_type }}/{{ added_year }}-{{ added_month }}_{{ title }}"
 
