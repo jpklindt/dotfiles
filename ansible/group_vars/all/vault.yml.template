@@ -1,3 +1,4 @@
+# mkpasswd
 vault_admin_password_hash: "YOUR_ADMIN_PASSWORD_HASH"
 
 # Server config
@@ -32,3 +33,15 @@ vault_paperless_admin_user: "YOUR_PAPERLESS_ADMIN_USER"
 vault_paperless_admin_password: "YOUR_PAPERLESS_ADMIN_PASSWORD"
 # generated using python3 -c "import secrets; print(secrets.token_urlsafe(50))"
 vault_paperless_secret_key: "YOUR_PAPERLESS_SECRET_KEY"
+
+# restic
+vault_restic_password: "YOUR_RESTIC_PASSWORD"
+vault_ntfy_topic: "YOUR_NTFY_TOPIC"
+
+# Authelia
+vault_authelia_jwt_secret: "YOUR_AUTHELIA_JWT_SECRET"
+vault_authelia_session_secret: "YOUR_AUTHELIA_SESSION_SECRET"
+vault_authelia_storage_encryption_key: "YOUR_AUTHELIA_STORAGE_ENCRYPTION_KEY"
+vault_authelia_admin_displayname: "YOUR_AUTHELIA_ADMIN_DISPLAYNAME"
+vault_authelia_admin_email: "YOUR_AUTHELIA_ADMIN_EMAIL"
+vault_authelia_admin_password_hash: "YOUR_AUTHELIA_ADMIN_PASSWORD_HASH"

@@ -8,5 +8,8 @@ paperless_domain: "paperless.{{ caddy_base_domain }}"
 paperless_allowed_hosts: "paperless.{{ caddy_base_domain }},localhost,127.0.0.1"
 paperless_overwrite_protocol: "http"
 
+authelia_domain: "auth.{{ caddy_base_domain }}"
+authelia_cookie_domain: "{{ caddy_base_domain }}"
+
 backup_drive_path: /dev/vdc
 data_drive_path: /dev/vdb

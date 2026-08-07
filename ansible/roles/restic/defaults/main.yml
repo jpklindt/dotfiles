@@ -30,7 +30,7 @@ restic_databases:
     }
   - {
       container: paperless-db,
-      cmd: "pg_dumpall -U {{ vault_paperless_db_user }} {{ paperless_db_name }}",
+      cmd: "pg_dump -U {{ vault_paperless_db_user }} {{ paperless_db_name }}",
       file: paperless.sql,
       tags: [db, paperless],
     }

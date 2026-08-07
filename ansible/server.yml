@@ -40,3 +40,5 @@
       tags: [backup, restic]
     - role: dozzle
       tags: [infra, dozzle]
+    - role: authelia
+      tags: [infra, authelia]

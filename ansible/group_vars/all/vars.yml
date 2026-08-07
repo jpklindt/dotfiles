@@ -30,3 +30,5 @@ nextcloud_db_dir: "{{ global_hot_dir }}/nextcloud/db"
 immich_upload_dir: "{{ global_cold_dir }}/immich"
 immich_base_dir: "{{ global_hot_dir}}/immich"
 immich_db_dir: "{{ global_hot_dir }}/immich/db"
+
+authelia_base_dir: "{{ global_hot_dir }}/authelia"
