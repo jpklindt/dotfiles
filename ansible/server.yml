@@ -38,3 +38,5 @@
       tags: [services, nextcloud]
     - role: restic
       tags: [backup, restic]
+    - role: dozzle
+      tags: [infra, dozzle]

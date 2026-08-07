@@ -120,6 +120,8 @@
   "vim.showMarksInGutter": true,
   "vim.joinspaces": true,
   "vim.useCtrlKeys": false,
+  "vim.timeout": 250, 
+  "search.seedWithNearestWord": true, 
   "vim.handleKeys": {
     "<C-a>": false, 
     "<C-f>": false, 
@@ -416,6 +418,19 @@
       "before": ["<leader>", "w", "/"],
       "commands": ["editor.action.blockComment"],
     },
+    {
+      "before": ["f", "w"],
+      "commands": [
+        {
+          "command": "workbench.action.findInFiles",
+          "args": {
+            "triggerSearch": true,
+            "filesToInclude": "",
+            "filesToExclude": "node_modules, .maven, .gradle, venv, dist, build, .git, .svn, .idea, .vscode, .DS_Store, *.log, *.tmp, coverage, .tox, target, __pycache__",
+          },
+        },
+      ],
+    },
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
@@ -478,6 +493,45 @@
         {
           "command": "editor.action.startFindReplaceAction",
           "when": "editorFocus || editorIsOpen",
+        },
+      ],
+    },
+    {
+      // fff find_files()
+      "before": ["f", "f"],
+      "commands": ["workbench.action.quickOpen"],
+    },
+    {
+      // fff live_grep() 
+      "before": ["f", "g"],
+      "commands": ["extension.ripgrep"],
+    },
+    {
+      // fff live_grep() fuzzy variant 
+      "before": ["f", "z"],
+      "commands": [
+        {
+          "command": "workbench.action.findInFiles",
+          "args": {
+            "query": "",
+            "triggerSearch": true,
+            "filesToInclude": "",
+            "filesToExclude": "node_modules, .maven, .gradle, venv, dist, build, .git, .svn, .idea, .vscode, .DS_Store, *.log, *.tmp, coverage, .tox, target, __pycache__",
+          },
+        },
+      ],
+    },
+    {
+      // fff live_grep_under_cursor()
+      "before": ["f", "w"],
+      "commands": [
+        {
+          "command": "workbench.action.findInFiles",
+          "args": {
+            "triggerSearch": true,
+            "filesToInclude": "",
+            "filesToExclude": "node_modules, .maven, .gradle, venv, dist, build, .git, .svn, .idea, .vscode, .DS_Store, *.log, *.tmp, coverage, .tox, target, __pycache__",
+          },
         },
       ],
     },
@@ -1119,8 +1173,9 @@
   "github.copilot.nextEditSuggestions.extendedRange": true,
   "extensions.ignoreRecommendations": true,
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Mocha",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|%|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
   "todo-tree.ripgrep.ripgrep": "/usr/bin/rg",
   "editor.wordWrap": "on",
+  "chat.titleBar.openInAgentsWindow.enabled": false,
 }

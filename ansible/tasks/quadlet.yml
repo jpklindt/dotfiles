@@ -23,3 +23,5 @@
     enabled: true
     scope: user
     daemon_reload: true
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ ansible_effective_user_id | default(1000) }}"

@@ -1,0 +1,13 @@
+---
+- name: Enable and start podman user socket
+  ansible.builtin.systemd_service:
+    name: podman.socket
+    state: started
+    enabled: true
+    scope: user
+
+- name: Deploy dozzle quadlet
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/quadlet.yml"
+  vars:
+    quadlet_service: dozzle.service
+    quadlet_files: [dozzle.container]
