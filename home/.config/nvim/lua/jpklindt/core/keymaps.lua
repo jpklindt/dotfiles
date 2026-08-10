@@ -22,6 +22,11 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
 
+keymap.set("n", "<M-h>", "<cmd>vertical resize -5<CR>", { desc = "Resize split left" })
+keymap.set("n", "<M-l>", "<cmd>vertical resize +5<CR>", { desc = "Resize split right" })
+keymap.set("n", "<M-j>", "<cmd>resize -5<CR>", { desc = "Resize split down" })
+keymap.set("n", "<M-k>", "<cmd>resize +5<CR>", { desc = "Resize split up" })
+
 -- Toggle line comment
 keymap.set("n", "<leader>rc", "gcc", { remap = true, desc = "Toggle line comment" })
 keymap.set("v", "<leader>rc", "gc", { remap = true, desc = "Toggle line comment" })

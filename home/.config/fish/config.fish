@@ -32,10 +32,11 @@ bind \ek nextd-or-forward-word
 #
 
 # ls
-alias l 'ls -a'
-alias ll 'ls -lah'
-alias ld 'ls -d */'
+alias l 'lsd -a'
+alias ll 'lsd -lah'
+alias ld 'lsd -d */'
 alias lt 'eza --color=always --tree --level 2 --sort type' 
+alias ls 'lsd'
 
 alias pbcopy 'xsel --clipboard --input'
 alias pbpaste 'xsel --clipboard --output'

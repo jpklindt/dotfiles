@@ -31,7 +31,7 @@ return {
 		{
 			"fc",
 			function()
-				require("fff").find_files_in_dir("~/dotfiles/home/.config/nvim")
+				require("fff").find_files_in_dir("~/dotfiles/home/.config/")
 			end,
 			desc = "Find config files",
 		},

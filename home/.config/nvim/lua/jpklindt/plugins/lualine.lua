@@ -55,6 +55,8 @@ return {
 				-- catppuccin's day/night flavour switch. Use "catppuccin" instead
 				-- if you want the branded catppuccin statusline look.
 				theme = "auto",
+				section_separators = { left = "", right = "" },
+				component_separators = { left = "", right = "" },
 			},
 			sections = {
 				lualine_x = {
