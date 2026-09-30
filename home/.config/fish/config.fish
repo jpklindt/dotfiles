@@ -56,6 +56,9 @@ alias gm 'npx @google/gemini-cli --resume'
 
 zoxide init fish | source
 fzf --fish | source
+atuin init fish --disable-up-arrow | source 
+
+
 
 # source (starship init fish --print-full-init | psub)
 

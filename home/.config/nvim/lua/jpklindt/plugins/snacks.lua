@@ -50,7 +50,11 @@ return {
 
 		terminal = { enabled = true },
 
-		explorer = { enabled = true },
+		explorer = {
+			enabled = true,
+			hidden = true,
+			ignored = true,
+		},
 
 		-- startup screen → replaces alpha.
 		dashboard = {
@@ -89,7 +93,7 @@ return {
 							Snacks.explorer()
 						end,
 					},
-					{ icon = "󰁯 ", key = "r", desc = "Restore Session", action = ":SessionRestore" },
+					{ icon = "󰁯 ", key = "r", desc = "Restore Session", action = "<cmd>AutoSession restore<CR>" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},

@@ -14,7 +14,7 @@ return {
 
 		-- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
 		-- Smears and particles will look a lot less blocky.
-		legacy_computing_symbols_support = false,
+		legacy_computing_symbols_support = true,
 
 		-- Smear cursor in insert mode.
 		-- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
@@ -27,5 +27,6 @@ return {
 		damping = 0.95, -- 0.85     [0, 1]
 		damping_insert_mode = 0.95, -- 0.9      [0, 1]
 		distance_stop_animating = 0.5, -- 0.1      > 0
+		enabled = false,
 	},
 }

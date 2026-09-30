@@ -101,6 +101,16 @@
     },
   ],
 
+  // catppuccin
+  "editor.semanticHighlighting.enabled": true,
+  "terminal.integrated.minimumContrastRatio": 1,
+  "catppuccin.accentColor": "maroon",
+  "catppuccin.customUIColors": {
+    "mocha": {
+      "statusBar.foreground": "accent",
+    },
+  },
+
   // Vim settings
   "vim.useSystemClipboard": true,
   "vim.autoindent": true,
@@ -1078,7 +1088,7 @@
     "plaintext": true,
     "markdown": false,
     "scminput": false,
-    "python": true,
+    "python": false,
     "java": true,
     "nusmv": true,
     "lua": true,
@@ -1173,9 +1183,11 @@
   "github.copilot.nextEditSuggestions.extendedRange": true,
   "extensions.ignoreRecommendations": true,
   "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-  "workbench.preferredLightColorTheme": "Catppuccin Latte",
+  "workbench.preferredLightColorTheme": "Catppuccin Mocha",
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|%|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
   "todo-tree.ripgrep.ripgrep": "/usr/bin/rg",
   "editor.wordWrap": "on",
   "chat.titleBar.openInAgentsWindow.enabled": false,
+  "claudeCode.preferredLocation": "panel",
+  "diffEditor.ignoreTrimWhitespace": false,
 }

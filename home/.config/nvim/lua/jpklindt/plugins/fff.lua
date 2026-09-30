@@ -11,6 +11,10 @@ return {
 			enabled = true,
 			show_scores = true,
 		},
+		keymaps = {
+			move_up = { "<Up>", "<C-p>", "<C-k>" },
+			move_down = { "<Down>", "<C-n>", "<C-j>" },
+		},
 	},
 	lazy = false, -- the plugin lazy-initialises itself
 	keys = {
