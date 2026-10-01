@@ -1,0 +1,6 @@
+[gdrive]
+type = drive
+scope = drive.file
+client_id = {{ vault_rclone_client_id }}
+client_secret = {{ vault_rclone_client_secret }}
+token = {{ vault_rclone_gdrive_token | to_json }}

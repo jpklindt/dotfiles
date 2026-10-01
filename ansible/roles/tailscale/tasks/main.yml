@@ -1,0 +1,55 @@
+---
+- name: Add Tailscale repo
+  ansible.builtin.get_url:
+    url: https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+    dest: /etc/yum.repos.d/tailscale.repo
+    mode: "0644"
+
+- name: Install Tailscale
+  ansible.builtin.dnf: { name: tailscale, state: present }
+
+- name: Enabled tailscaled
+  ansible.builtin.systemd: { name: tailscaled, enabled: true, state: started }
+
+- name: Read tailscale state
+  ansible.builtin.command: tailscale status --json
+  register: ts_status
+  changed_when: false
+  failed_when: false
+
+- name: Join tailnet
+  ansible.builtin.command: >-
+    tailscale up --auth-key={{ tailscale_authkey }} --advertise-tags={{ tailscale_tag }}
+  when:
+    - tailscale_authkey | length > 0
+    - (ts_status.stdout | default('{}', true) | from_json).BackendState | default('') != 'Running'
+  no_log: true
+
+- name: Create Tailscale zone
+  ansible.posix.firewalld: { zone: tailscale, state: present, permanent: true }
+  register: ts_zone
+
+- name: Reload after zone created
+  ansible.builtin.command: firewall-cmd --reload
+  when: ts_zone is changed
+
+- name: Bind tailscale0 to zone
+  ansible.posix.firewalld:
+    {
+      zone: tailscale,
+      interface: tailscale0,
+      permanent: true,
+      immediate: true,
+      state: enabled,
+    }
+
+- name: Open web and ssh on tailnet
+  ansible.posix.firewalld:
+    {
+      zone: tailscale,
+      service: "{{ item }}",
+      permanent: true,
+      immediate: true,
+      state: enabled,
+    }
+  loop: [http, https, ssh]

@@ -47,3 +47,9 @@
     quadlet_templates:
       - paperless-server.container
       - paperless-db.container
+
+- name: Deploy backup services
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/user_units.yml"
+  vars:
+    user_unit_files: [paperless-export.service, paperless-export.timer]
+    user_unit_enable: [paperless-export.timer]

@@ -1,14 +1,14 @@
 ---
-- name: Create global storage directories
-  become: true
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    mode: "0755"
-  loop:
-    - "{{ global_hot_dir }}"
-    - "{{ global_cold_dir }}"
-
+# - name: Create global storage directories
+#   become: true
+#   ansible.builtin.file:
+#     path: "{{ item }}"
+#     state: directory
+#     mode: "0755"
+#   loop:
+#     - "{{ global_hot_dir }}"
+#     # - "{{ global_cold_dir }}"
+#
 - name: Format and mount drives
   ansible.builtin.import_tasks: mount.yml
 

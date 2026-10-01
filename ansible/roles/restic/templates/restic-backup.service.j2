@@ -1,9 +1,0 @@
-[Unit]
-Description=restic backup to local repository
-
-[Service]
-Type=oneshot
-EnvironmentFile=%h/.config/restic/env
-{% for source in restic_sources %}
-ExecStart=/usr/bin/podman unshare /usr/bin/restic backup {{ source.path }} {{ source.tags | map('regex_replace', '^', '--tag ') | join(' ') }} {{ source.exclude | default([]) | map('regex_replace', '^', '--exclude ') | join(' ') }}
-{% endfor %}

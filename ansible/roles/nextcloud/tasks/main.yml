@@ -41,9 +41,14 @@
   ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/quadlet.yml"
   vars:
     quadlet_service: nextcloud-pod.service
-    quadlet_files:
-      [nextcloud.pod, nextcloud-valkey.container, nextcloud-cron.timer]
+    quadlet_files: [nextcloud.pod, nextcloud-valkey.container]
     quadlet_templates:
       - nextcloud-cron.container
       - nextcloud-database.container
       - nextcloud-server.container
+
+- name: Install nextcloud cron timer
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/user_units.yml"
+  vars:
+    user_unit_files: [nextcloud-cron.timer]
+    user_unit_enable: [nextcloud-cron.timer]

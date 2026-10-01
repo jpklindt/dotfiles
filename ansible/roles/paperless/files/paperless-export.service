@@ -1,0 +1,7 @@
+[Unit]
+Description=Paperless document exporter
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/podman exec paperless-server document_exporter /usr/src/paperless/export --delete --no-archive --no-thumbnail
+

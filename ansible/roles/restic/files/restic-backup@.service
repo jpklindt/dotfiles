@@ -1,0 +1,10 @@
+[Unit]
+Description=restic backup to %i
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/restic/%i.env
+ExecStart=/usr/bin/podman unshare /usr/bin/restic backup --files-from %h/.config/restic/paths --exclude-file %h/.config/restic/excludes
+ExecStart=/usr/bin/restic forget --prune --keep-daily 7 --keep-weekly 4 --keep-monthly 12
+ExecStart=/usr/bin/restic check --read-data-subset=2%% 
+ExecStartPost=-/usr/bin/curl -fsS -m 10 -X POST http://127.0.0.1:8081/api/v1/endpoints/backups_%i/external?success=true
