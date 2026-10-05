@@ -7,7 +7,6 @@ ContainerName=caddy
 Image=localhost/caddy-custom:latest
 EnvironmentFile=/srv/appdata/caddy/.env
 
-AutoUpdate=registry
 Network=host
 
 Volume=/srv/appdata/caddy/Caddyfile:/etc/caddy/Caddyfile:Z

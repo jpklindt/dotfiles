@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "customManagers:dockerfileVersions"],
+  "schedule": ["before 6am on saturday"],
+  "ignorePaths": ["containers/**"],
+  "quadlet": { "managerFilePatterns": ["/\\.container\\.j2$/"] },
+  "ignoreDeps": ["localhost/caddy-custom", "ghcr.io/immich-app/postgres"],
+  "packageRules": [
+    {
+      "matchDepNames": ["docker.io/postgres"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    { "matchDepNames": ["docker.io/nextcloud"], "separateMultipleMajor": true },
+    {
+      "matchDepNames": ["ghcr.io/paperless-ngx/paperless-ngx"],
+      "versioning": "semver"
+    }
+  ]
+}

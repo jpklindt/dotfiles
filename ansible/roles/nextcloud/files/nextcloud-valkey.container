@@ -3,8 +3,7 @@ Description=Nextcloud Valkey container
 
 [Container]
 ContainerName=nextcloud-valkey
-Image=docker.io/valkey/valkey:9
-AutoUpdate=registry
+Image=docker.io/valkey/valkey:9.1.2
 Pod=nextcloud.pod
 
 [Service]

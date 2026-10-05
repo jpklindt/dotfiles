@@ -1,0 +1,23 @@
+[Unit]
+Description=GTNH server backup
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/gtnh-backup/env
+ExecStartPre=/usr/bin/mountpoint -q ${BACKUP_MOUNT}
+
+ExecStartPre=/usr/bin/rclone sync gtnh:/ ${STAGING} --exclude /${WORLD}/**
+
+ExecStartPre=/usr/bin/mcrcon save-off save-all
+ExecStartPre=/usr/bin/sleep 15
+ExecStartPre=/usr/bin/rclone sync gtnh:/${WORLD} ${STAGING}/${WORLD}
+ExecStartPre=/usr/bin/mcrcon save-on
+
+ExecStart=/usr/bin/restic backup ${STAGING} --host gtnh --tag gtnh
+ExecStartPost=/usr/bin/restic forget --host gtnh --tag gtnh --group-by host,tags \
+    --keep-last 8 --keep-hourly 24 --keep-daily 14 --keep-weekly 8 --keep-monthly 12 --prune
+
+ExecStopPost=/usr/bin/mcrcon save-on
+
+TimeoutStartSec=2h
+Nice=15

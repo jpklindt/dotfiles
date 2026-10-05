@@ -1,0 +1,10 @@
+logs/**
+*.log
+*.log.gz
+crash-reports/**
+cache/**
+dynmap/web/tiles/**
+
+.trash/**
+
+backups/**

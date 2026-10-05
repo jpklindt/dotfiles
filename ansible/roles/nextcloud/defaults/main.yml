@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT-0
 ---
-# defaults file for roles/nextcloud
-nextcloud_version: 34.0.1
 nextcloud_domain: "nextcloud.{{ vault_base_domain }}"
 nextcloud_trusted_domains: "{{ vault_nextcloud_trusted_domains }}"
 nextcloud_overwrite_protocol: "https"

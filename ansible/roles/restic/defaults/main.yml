@@ -10,10 +10,3 @@ restic_paths:
 
 restic_excludes:
   - "{{ nextcloud_data_dir }}/appdata_*/preview"
-
-restic_retention:
-  nextcloud: { keep-daily: 30, keep-monthly: 12 }
-  immich: { keep-daily: 14, keep-monthly: 6 }
-  paperless: { keep-daily: 30, keep-monthly: 12 }
-  infra: { keep-daily: 14, keep-monthly: 6 }
-  db: { keep-daily: 30, keep-monthly: 12 }

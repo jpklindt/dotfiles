@@ -1,6 +1,4 @@
 ---
-# defaults file for roles/paperless
-paperless_version: "3.0.0-beta.rc1"
 paperless_timezone: "Europe/Amsterdam"
 paperless_domain: "paperless.{{ vault_base_domain }}"
 paperless_allowed_hosts: "{{ paperless_domain }},localhost,127.0.0.1"

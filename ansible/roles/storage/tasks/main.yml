@@ -22,3 +22,4 @@
     group: "{{ vault_admin_username }}"
   loop:
     - "restic"
+    - "gtnh"

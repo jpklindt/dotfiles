@@ -4,7 +4,7 @@ Description=Nextcloud Database
 [Container]
 ContainerName=nextcloud-database
 Pod=nextcloud.pod
-Image=docker.io/postgres:16-alpine
+Image=docker.io/postgres:16.15-alpine
 Environment=POSTGRES_PASSWORD={{ vault_nextcloud_db_password }}
 Environment=POSTGRES_USER={{ vault_nextcloud_db_user }}
 Environment=POSTGRES_DB={{ vault_nextcloud_db_name }}

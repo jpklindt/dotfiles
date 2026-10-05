@@ -38,19 +38,15 @@
   roles:
     - role: caddy
       tags: [infra, caddy]
-    # - role: uptime_kuma
-    #   tags: [infra, uptime_kuma]
     # - role: immich
     #   tags: [services, immich]
-    # - role: apps
-    #   tags: [services, it-tools, apps]
+    - role: apps
+      tags: [services, it-tools, apps]
     - role: paperless
       tags: [services, paperless]
     - role: nextcloud
       tags: [services, nextcloud]
     - role: restic
       tags: [backup, restic]
-    # - role: dozzle
-    #   tags: [infra, dozzle]
-    # - role: authelia
-    #   tags: [infra, authelia]
+    - role: gtnh_backup
+      tags: [backup, gtnh]

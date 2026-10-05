@@ -42,3 +42,62 @@
     user: "{{ vault_admin_username }}"
     key: "{{ vault_admin_ssh_keys | join('\n') }}"
     exclusive: true
+
+- name: Disable Cockpit
+  become: true
+  ansible.builtin.systemd:
+    name: cockpit.socket
+    state: stopped
+    enabled: false
+    masked: true
+
+- name: Close Cockpit port in firewall
+  become: true
+  ansible.posix.firewalld:
+    service: cockpit
+    state: disabled
+    permanent: true
+    immediate: true
+
+- name: Install dnf5-automatic
+  become: true
+  ansible.builtin.dnf:
+    name: dnf5-plugin-automatic
+    state: present
+
+- name: Configure dnf5-automatic
+  become: true
+  ansible.builtin.copy:
+    src: automatic.conf
+    dest: /etc/dnf/automatic.conf
+    mode: "0644"
+
+- name: Create dnf5-automatic dirs
+  become: true
+  ansible.builtin.file:
+    path: "/etc/systemd/system/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop: [dnf5-automatic.timer.d, dnf5-automatic.service.d]
+
+- name: Schedule dnf5-automatic
+  become: true
+  ansible.builtin.copy:
+    src: 10-schedule.conf
+    dest: /etc/systemd/system/dnf5-automatic.timer.d/10-schedule.conf
+    mode: "0644"
+
+- name: Push on successful update run
+  become: true
+  ansible.builtin.copy:
+    src: 20-ntfy-success.conf
+    dest: /etc/systemd/system/dnf5-automatic.service.d/20-ntfy-success.conf
+    mode: "0644"
+
+- name: Enable dnf5-automatic timer
+  become: true
+  ansible.builtin.systemd:
+    name: dnf5-automatic.timer
+    enabled: true
+    state: started
+    daemon_reload: true

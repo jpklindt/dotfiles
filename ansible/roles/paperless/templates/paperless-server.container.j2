@@ -5,7 +5,7 @@ After=paperless-db.container paperless-redis.container paperless-gotenberg.conta
 
 [Container]
 ContainerName=paperless-server
-Image=ghcr.io/paperless-ngx/paperless-ngx:{{ paperless_version }}
+Image=ghcr.io/paperless-ngx/paperless-ngx:3.2.1
 Pod=paperless.pod
 Volume={{ paperless_consume_dir }}:/usr/src/paperless/consume:z
 Volume={{ paperless_export_dir }}:/usr/src/paperless/export:z

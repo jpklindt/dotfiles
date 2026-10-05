@@ -6,7 +6,7 @@ Requires=nextcloud-server.container
 [Container]
 ContainerName=nextcloud-cron
 Pod=nextcloud.pod
-Image=docker.io/nextcloud:{{ nextcloud_version }}
+Image=docker.io/nextcloud:35.0.1
 Exec=php -f /var/www/html/cron.php
 User=www-data
 Volume={{ nextcloud_html_dir }}:/var/www/html:z

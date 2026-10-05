@@ -6,7 +6,7 @@ After=nextcloud-database.container nextcloud-valkey.container
 [Container]
 ContainerName=nextcloud-server
 Pod=nextcloud.pod
-Image=docker.io/nextcloud:{{ nextcloud_version }}
+Image=docker.io/nextcloud:35.0.1
 Volume={{ nextcloud_html_dir }}:/var/www/html:z
 Volume={{ nextcloud_data_dir }}:/var/www/html/data:z
 Volume={{ paperless_media_dir }}/documents/archive:/paperless_archive:z

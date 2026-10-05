@@ -1,0 +1,39 @@
+---
+- name: Ensure GTNH config dir
+  ansible.builtin.file:
+    path: "{{ gtnh_config_dir }}"
+    state: directory
+    mode: "0700"
+
+- name: Write exclude list
+  ansible.builtin.copy:
+    src: exclude.txt
+    dest: "{{ gtnh_config_dir }}/exclude.txt"
+    mode: "0644"
+
+- name: Write env
+  ansible.builtin.template:
+    src: gtnh-backup.env.j2
+    dest: "{{ gtnh_config_dir }}/env"
+    mode: "0600"
+
+- name: Ensure backup drive is mounted
+  ansible.builtin.assert:
+    that: ansible_mounts | selectattr('mount', 'equalto', global_backup_dir) | list | length > 0
+    fail_msg: "{{ global_backup_dir }} is not mounted"
+
+- name: Initialize GTNH restic repo
+  ansible.builtin.command: restic init
+  environment:
+    RESTIC_REPOSITORY: "{{ gtnh_repository }}"
+    RESTIC_PASSWORD: "{{ vault_restic_password }}"
+  register: gtnh_init
+  changed_when: gtnh_init.rc == 0
+  failed_when: gtnh_init.rc != 0 and 'already exists' not in gtnh_init.stderr
+  no_log: true
+
+- name: Deploy GTNH units
+  ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/user_units.yml"
+  vars:
+    user_unit_files: [gtnh-backup.service, gtnh-backup.timer]
+    user_unit_enable: [gtnh-backup.timer]
