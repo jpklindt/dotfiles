@@ -1,3 +1,22 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for roles/notify
+- name: template env file
+  ansible.builtin.template:
+    src: ntfy.env.j2
+    dest: /etc/ntfy.env
+    owner: root
+    group: "{{ vault_admin_username }}"
+    mode: "0640"
+
+- name: Install notify systemd units
+  ansible.builtin.copy:
+    src: units/
+    dest: "/etc/systemd/{{ item }}/"
+    mode: "0644"
+    directory_mode: "0755"
+  loop: [system, user]
+  notify: notify reload
+
+- name: Look up admin uid
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ vault_admin_username }}"

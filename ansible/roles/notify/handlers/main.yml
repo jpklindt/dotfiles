@@ -1,3 +1,14 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# handlers file for roles/notify
+- name: Reload system
+  ansible.builtin.systemd:
+    daemon_reload: true
+  listen: notify reload
+
+- name: Reload admin user
+  become_user: "{{ vault_admin_username }}"
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ getent_passwd[vault_admin_username][1] }}"
+  listen: notify reload

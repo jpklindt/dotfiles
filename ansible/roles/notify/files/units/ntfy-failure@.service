@@ -1,0 +1,13 @@
+[Unit]
+Description=Notify on failure
+StartLimitIntervalSec=6h
+StartLimitBurst=1
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/ntfy.env
+ExecStart=/usr/bin/curl -fsS -m 15 --retry 8 --retry-delay 15 --retry-all-errors \
+    -H "Title: %i failed on %H" \
+    -H "Priority: high" \
+    -d "Result: ${MONITOR_SERVICE_RESULT} ${MONITOR_EXIT_CODE} ${MONITOR_EXIT_STATUS}" \
+    ${NTFY_FAILURE_URL}

@@ -4,6 +4,15 @@
   roles:
     - role: base
       tags: [base]
+    - role: devsec.hardening.ssh_hardening
+      become: true
+      tags: [base, ssh]
+      vars:
+        ssh_client_hardening: false
+        ssh_max_auth_retries: 6
+    - role: notify
+      become: true
+      tags: [base, notify]
     - role: tailscale
       become: true
       tags: [base, tailscale]

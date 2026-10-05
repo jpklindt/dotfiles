@@ -1,0 +1,12 @@
+[Unit]
+Description=Notify on success
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/ntfy.env
+ExecStart=/usr/bin/curl -fsS -m 15 --retry 8 --retry-delay 15 --retry-all-errors \
+    -H "Title: %i successfully executed on %H" \
+    -H "Priority: min" \
+    -d "%i completed." \
+    ${NTFY_SUCCESS_URL}
+
