@@ -1,5 +1,6 @@
 [Unit]
 Description=GTNH server backup
+OnSuccess=ntfy-success@%N.service
 
 [Service]
 Type=oneshot
