@@ -3,7 +3,6 @@ Description=Nightly restic backup to %i
 
 [Timer]
 OnCalendar=*-*-* 03:00
-RandomizedDelaySec=5m
 Persistent=true
 
 [Install]

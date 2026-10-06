@@ -27,6 +27,7 @@ paperless_db_name: "paperless"
 nextcloud_data_dir: "{{ global_hot_dir }}/nextcloud/data"
 nextcloud_html_dir: "{{ global_hot_dir }}/nextcloud/html"
 nextcloud_db_dir: "{{ global_hot_dir }}/nextcloud/db"
+nextcloud_dump_dir: "{{ global_hot_dir }}/nextcloud/dump"
 
 # immich_upload_dir: "{{ global_cold_dir }}/immich"
 # immich_base_dir: "{{ global_hot_dir}}/immich"

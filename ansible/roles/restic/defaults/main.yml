@@ -5,6 +5,8 @@ restic_repos:
 
 restic_paths:
   - "{{ nextcloud_data_dir }}"
+  - "{{ nextcloud_html_dir }}"
+  - "{{ nextcloud_dump_dir }}"
   - "{{ paperless_export_dir }}"
 # ExecStartPre=/usr/bin/podman exec paperless-server document_exporter /usr/src/paperless/export --delete --no-archive --no-thumbnail
 

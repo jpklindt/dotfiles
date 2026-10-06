@@ -1,0 +1,7 @@
+[Unit]
+Description=Dump nextcloud database before backup
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'podman exec nextcloud-database pg_dump -U {{ vault_nextcloud_db_user }} -Fc -Z0 {{ vault_nextcloud_db_name }} > {{ nextcloud_dump_dir }}/nextcloud.pgdump.tmp'
+ExecStart=/usr/bin/mv {{ nextcloud_dump_dir }}/nextcloud.pgdump.tmp {{ nextcloud_dump_dir }}/nextcloud.pgdump

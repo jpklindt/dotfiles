@@ -10,14 +10,22 @@
     src: "{{ item }}"
     dest: "{{ user_unit_dir }}/{{ item }}"
     mode: "0644"
-  loop: "{{ user_unit_files }}"
+  loop: "{{ user_unit_files | default([]) }}"
   register: user_units_copied
+
+- name: Template user units
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ user_unit_dir }}/{{ item }}"
+    mode: "0644"
+  loop: "{{ user_unit_templates | default([]) }}"
+  register: user_units_templated
 
 - name: Reload user manager
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
-  when: user_units_copied is changed
+  when: user_units_copied is changed or user_units_templated is changed
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ ansible_effective_user_id }}"
 
@@ -27,6 +35,6 @@
     enabled: true
     state: started
     scope: user
-  loop: "{{ user_unit_enable }}"
+  loop: "{{ user_unit_enable | default([]) }}"
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ ansible_effective_user_id }}"

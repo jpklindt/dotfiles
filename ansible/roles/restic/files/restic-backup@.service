@@ -1,5 +1,7 @@
 [Unit]
 Description=restic backup to %i
+Wants=nextcloud-dump.service paperless-export.service
+After=nextcloud-dump.service paperless-export.service
 OnSuccess=ntfy-success@%N.service
 
 [Service]

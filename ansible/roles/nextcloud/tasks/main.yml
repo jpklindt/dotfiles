@@ -18,6 +18,12 @@
     state: directory
     mode: "0755"
 
+- name: Create Nextcloud DB dump directory
+  ansible.builtin.file:
+    path: "{{ nextcloud_dump_dir }}"
+    state: directory
+    mode: "0700"
+
 - name: Create Nextcloud data and db directories # noqa risky-file-permissions
   ansible.builtin.file:
     path: "{{ item }}"
@@ -51,4 +57,5 @@
   ansible.builtin.include_tasks: "{{ playbook_dir }}/tasks/user_units.yml"
   vars:
     user_unit_files: [nextcloud-cron.timer]
+    user_unit_templates: [nextcloud-dump.service]
     user_unit_enable: [nextcloud-cron.timer]
