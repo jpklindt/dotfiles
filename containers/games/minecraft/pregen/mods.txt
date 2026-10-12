@@ -1,3 +1,0 @@
-https://modrinth.com/plugin/chunky
-https://modrinth.com/mod/fabric-api
-https://modrinth.com/mod/c2me-fabric

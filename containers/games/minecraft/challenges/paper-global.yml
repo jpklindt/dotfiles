@@ -1,9 +1,0 @@
-misc:
-  fix-entity-position-desync: false
-unsupported-settings:
-  allow-permanent-block-break-exploits: true
-  allow-piston-duplication: true
-  perform-username-validation: false
-  allow-headless-pistons: true
-
-
