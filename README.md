@@ -8,16 +8,12 @@ Personal dotfiles and homelab configuration.
 
 ### ansible/
 
-Work-in-progress Ansible setup for my homeserver. Not all roles are complete but the setup is deployed and running on the server with Nextcloud, Paperless and Backups enabled.
+Work-in-progress Ansible setup for my homeserver. Not all roles are complete but the setup is deployed and running on the server with Nextcloud, Paperless and backups enabled.
 
 ### home/
 
-My dotfiles, symlinked by the stow script.
+My dotfiles, symlinked by the stow script using GNU Stow.
 
 ### deploy
 
 Provisions the home server with the `server.yml` playbook.
-
-### stow
-
-Symlinks dotfiles into home directory using GNU Stow.
