@@ -12,9 +12,12 @@ return {
 			typescriptreact = { "eslint_d" },
 			svelte = { "eslint_d" },
 			python = { "pylint" },
+			java = { "checkstyle" },
 		}
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+		lint.linters.checkstyle.config_file = "/google_checks.xml"
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,

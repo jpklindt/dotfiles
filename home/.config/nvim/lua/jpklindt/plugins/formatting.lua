@@ -20,7 +20,7 @@ return {
 				liquid = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
-				java = { "prettier" },
+				java = { "google-java-format" },
 				kotlin = { "prettier" },
 			},
 			format_on_save = function(bufnr)

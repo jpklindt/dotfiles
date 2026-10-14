@@ -19,7 +19,16 @@ return {
 
 		-- Snacks.picker: telescope-style floating list. ui_select = true takes over
 		-- vim.ui.select (code-action menus etc.) — the half of dressing that `input` doesn't.
-		picker = { enabled = true, ui_select = false },
+		picker = {
+			enabled = true,
+			ui_select = false,
+			sources = {
+				explorer = {
+					hidden = true,
+					ignored = true,
+				},
+			},
+		},
 
 		-- indent guides → replaces indent-blankline (keeps your ┊ char)
 		indent = {
@@ -52,8 +61,6 @@ return {
 
 		explorer = {
 			enabled = true,
-			hidden = true,
-			ignored = true,
 		},
 
 		-- startup screen → replaces alpha.
