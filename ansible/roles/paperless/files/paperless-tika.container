@@ -3,7 +3,7 @@ Description=Paperless Tika container
 
 [Container]
 ContainerName=paperless-tika
-Image=docker.io/apache/tika:3.3.1.0
+Image=docker.io/apache/tika:3.3.3.0
 Pod=paperless.pod
 
 [Service]
