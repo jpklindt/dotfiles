@@ -5,7 +5,7 @@ Description=Immich Redis
 ContainerName=immich-redis
 #AutoUpdate=registry
 Pod=immich.pod
-Image=docker.io/valkey/valkey:9.1.2
+Image=docker.io/valkey/valkey:9.1.3
 HealthCmd=redis-cli ping || exit 1
 
 [Service]

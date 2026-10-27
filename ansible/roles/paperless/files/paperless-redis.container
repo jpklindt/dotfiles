@@ -3,7 +3,7 @@ Description=Paperless Redis container
 
 [Container]
 ContainerName=paperless-redis
-Image=docker.io/valkey/valkey:9.1.2
+Image=docker.io/valkey/valkey:9.1.3
 Pod=paperless.pod
 HealthCmd=redis-cli ping
 
