@@ -4,7 +4,7 @@ After=network-online.target
 
 [Container]
 ContainerName=it-tools
-Image=docker.io/sharevb/it-tools:2026.9.27
+Image=docker.io/sharevb/it-tools:2026.10.25
 PublishPort=127.0.0.1:8085:8080
 
 [Service]
