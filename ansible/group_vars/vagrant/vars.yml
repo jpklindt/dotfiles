@@ -13,5 +13,6 @@ authelia_cookie_domain: "{{ caddy_base_domain }}"
 
 backup_drive_path: /dev/vdb
 # data_drive_path: /dev/vdb
-tailscale_authkey: "{{ vault_tailscale_vagrant_authkey }}"
+tailscale_authkey: ""
+# {{ vault_tailscale_vagrant_authkey }}"
 tailscale_tag: "tag:vagrant"

@@ -8,3 +8,5 @@ dynmap/web/tiles/**
 .trash/**
 
 backups/**
+
+World/lss-lod/**
