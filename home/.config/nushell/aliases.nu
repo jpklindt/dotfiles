@@ -31,7 +31,7 @@ def pbcopy [] {
     if $nu.os-info.name == "windows" {
         clip
     } else {
-        xsel --clipboard --input
+        wl-copy
     }
 }
 
@@ -39,7 +39,7 @@ def pbpaste [] {
     if $nu.os-info.name == "windows" {
         powershell get-clipboard
     } else {
-        xsel --clipboard --output
+        wl-paste --no-newline
     }
 }
 

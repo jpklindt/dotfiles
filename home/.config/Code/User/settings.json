@@ -1190,4 +1190,73 @@
   "chat.titleBar.openInAgentsWindow.enabled": false,
   "claudeCode.preferredLocation": "panel",
   "diffEditor.ignoreTrimWhitespace": false,
+  "editor.tokenColorCustomizations": {
+    "[One Dark Pro][One Dark Pro Flat][One Dark Pro Darker][One Dark Pro Mix]": {
+      "textMateRules": [
+        {
+          "scope": "support.type.lua",
+          "settings": {
+            "foreground": "#56B6C2"
+          }
+        },
+        {
+          "scope": "support.type.primitive.lua",
+          "settings": {
+            "foreground": "#56B6C2"
+          }
+        }
+      ]
+    },
+    "textMateRules": [
+      {
+        "scope": "support.function.builtin.gsl",
+        "settings": {
+          "foreground": "#C080C0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "support.variable.sampler.gsl",
+        "settings": {
+          "foreground": "#6BC0C0"
+        }
+      },
+      {
+        "scope": "support.variable.engine.gsl",
+        "settings": {
+          "foreground": "#6BC0C0"
+        }
+      },
+      {
+        "scope": "support.constant.engine.gsl",
+        "settings": {
+          "foreground": "#6BC0C0"
+        }
+      },
+      {
+        "scope": "support.type.struct.gsl",
+        "settings": {
+          "foreground": "#4EC9B0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "variable.language.engine.gsl",
+        "settings": {
+          "foreground": "#B0B0B0",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "keyword.other.shader.gsl",
+        "settings": {
+          "foreground": "#569CD6"
+        }
+      }
+    ]
+  },
+  "workbench.editorAssociations": {
+    "*.dds": "fsLua.imageViewer",
+    "*.png": "fsLua.imageViewer"
+  },
 }

@@ -38,8 +38,8 @@ alias ld 'lsd -d */'
 alias lt 'eza --color=always --tree --level 2 --sort type' 
 alias ls 'lsd'
 
-alias pbcopy 'xsel --clipboard --input'
-alias pbpaste 'xsel --clipboard --output'
+alias pbcopy 'wl-copy'
+alias pbpaste 'wl-paste --no-newline'
 
 # git
 alias gc 'git commit -m'
